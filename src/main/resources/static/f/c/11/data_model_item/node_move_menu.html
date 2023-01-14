@@ -1,0 +1,26 @@
+<span class=" w3-dropdown-hover w3-hover-shadow w3-white"> <span
+	class="w3-opacity"> &nbsp; &nbsp;<i class="fas fa-ellipsis-v"></i>
+</span>&nbsp;
+	<div class="w3-dropdown-content w3-card-4 w3-left w3-right-align"
+		style="right: 1px;">
+		<span class="w3-bar w3-tiny"><span
+			class="w3-btn w3-ripple w3-padding-small"
+			data-ng-click="ctrl.go_up_level2(0,d.doc_id)"> <i
+				class="fas fa-level-up-alt fa-flip-horizontal"></i>
+		</span> [{{d.doc_id}}] <span class="w3-btn w3-ripple w3-padding-small"
+			data-ng-click="ctrl.go_up_level2(1,d.doc_id)"> <i
+				class="fas fa-level-up-alt"></i>
+		</span> </span>
+		<div data-ng-if="371985==d.reference">
+			<span data-ng-click="ctrl.sql_exe.add2exe(d.doc_id);" class="w3-btn"> <span
+				class="w3-tiny"> SQL </span> <i class="fas fa-terminal"></i>
+			</span>
+		</div>
+		<div data-ng-if="371331==d.reference">
+			<span data-ng-click="ctrl.sql_exe.add2exe(d.doc_id);ctrl.sql_exe.read(d.doc_id)" class="w3-btn"> <span
+				class="w3-tiny"> SQL </span> <i class="fas fa-terminal"></i>
+			</span>
+		</div>
+		<div>&nbsp;</div>
+	</div> &nbsp;
+</span>

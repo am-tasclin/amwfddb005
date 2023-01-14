@@ -1,0 +1,75 @@
+<div data-ng-repeat="d_type in [ctrl.eMap[369379]]">
+	<div class="w3-border-bottom"
+		data-ng-repeat="table_model in ctrl.object_values(ctrl.eMap) | filter:{reference:369379}">
+		<div class="w3-hover-shadow"
+			data-ng-click="ctrl.init_table_model(table_model)">
+			<i class="w3-tiny fas fa-table"> </i> {{table_model.value_1_22}} <span
+				class="w3-tiny w3-right"> col №:
+				{{ctrl.eMap[table_model.doc_id].cnt_child}} </span>
+		</div>
+		<div data-ng-if="table_model.open_view">
+			<div data-ng-include="'/f/c/11/formula/data_model_formula_list.html'"></div>
+			<table>
+				<thead class="w3-grey">
+					<tr class="w3-small">
+						<th class="w3-left-align"><span
+							class="w3-dropdown-hover w3-hover-shadow">&nbsp;#&nbsp;<i
+								class="fas fa-columns"></i>
+								<div class="w3-dropdown-content w3-card">
+									<span class="w3-btn"
+										data-ng-click="ctrl.rowInsert(table_model)">
+										+ </span>
+								</div>
+						</span></th>
+						<th data-ng-repeat="col in ctrl.eMap[table_model.doc_id].children"
+							title="{{col.doc_id}}">{{col.value_1_22}} <i
+							data-ng-if="ctrl.eMap[col.reference].reference2==369364"
+							class="fas fa-calculator w3-tiny"></i>
+						</th>
+					</tr>
+				</thead>
+				<tbody data-ng-include="'/f/c/11/invoice/ref2_table_trs.html'"
+					data-ng-repeat="data_tab in ctrl.eMap[369343].children | filter:{reference2:ctrl.eMap[table_model.reference2].doc_id}"
+					data-ng-init="table_modelOfdata_id=table_model.reference2"
+					data-ng-if="table_model.reference==ctrl.eMap[table_model.reference2].reference">
+				</tbody>
+				<tbody
+					data-ng-repeat="data_tab in ctrl.object_values(ctrl.eMap) | filter:{reference2:table_model.doc_id}">
+					<tr class="w3-hover-shadow"
+						data-ng-mouseover="ctrl.mouseover_row_id=row.doc_id"
+						data-ng-repeat-start="row in ctrl.eMap[data_tab.doc_id].children | filter:{reference:table_model.doc_id}">
+						<td title="{{row.doc_id}}"
+							data-ng-class="{'w3-border-top w3-border-bottom':row.rowOpenToEdit}">
+							<span data-ng-click="ctrl.rowOpenToEdit(row)"
+							class="w3-hover-shadow w13-left"> &nbsp;<a
+								data-ng-class="{'am-b':row.rowOpenToEdit}" href="#">#</a>
+						</span> <span class="w3-right w3-dropdown-hover"
+							data-ng-if="ctrl.mouseover_row_id==row.doc_id"> :
+								<div class="w3-dropdown-content w3-card">
+									<span data-ng-click="ctrl.rowDelete(row)" class="w3-btn am-b">-</span>
+								</div>
+						</span>
+						</td>
+						<td data-ng-repeat="col in ctrl.eMap[table_model.doc_id].children"
+							data-ng-class="{'w3-border-top':row.rowOpenToEdit}"
+							data-ng-include="'/f/c/11/invoice/cell_view_edit.html'"></td>
+					</tr>
+					<tr data-ng-repeat-end data-ng-if="$last">
+						<td>*</td>
+						<td data-ng-repeat="col in ctrl.eMap[table_model.doc_id].children">
+							<div data-ng-repeat="col_fn in col.children"
+								data-ng-if="369364 == ctrl.eMap[ctrl.eMap[col_fn.reference].parent].reference">
+								<span class="w3-tiny am-b w3-hover-shadow"
+									data-ng-click="ctrl['calc_'+ctrl.eMap[col_fn.reference].value_1_22](col_fn)">
+									{{col_fn.value_1_22}}<span data-ng-if="!col_fn.value_1_22">
+										{{ctrl.eMap[col_fn.reference].value_1_22}}</span>:
+								</span>
+								<div>{{col_fn.calc_value}}</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,34 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.1'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'org.algoritmed'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.webjars.npm:angular:1.8.3'
+	runtimeOnly 'org.webjars.npm:angular-animate:1.8.2'
+	runtimeOnly 'org.webjars.npm:angular-resource:1.8.2'
+	runtimeOnly 'org.webjars.npm:angular-route:1.8.2'
+	runtimeOnly 'org.webjars.npm:angular-sanitize:1.8.2'
+	runtimeOnly 'org.webjars.npm:angular-aria:1.8.2'
+	runtimeOnly 'org.webjars.npm:angular-i18n:1.8.2'
+	runtimeOnly 'org.webjars.npm:angular-messages:1.8.2'
+	implementation 'org.webjars:font-awesome:6.1.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

@@ -1,0 +1,10 @@
+<span> <a href="/"
+	class=" w3-btn w3-border w3-padding-small w3-round-large w3-hover-shadow am-no-print">
+		<span data-ng-repeat="rnd in [ctrl.random.home2.value]"
+		data-ng-switch="rnd"> <i data-ng-switch-when="0"
+			class="fa fa-home w3-large" aria-hidden="true"></i> <i
+			data-ng-switch-when="1" class="fas fa-clinic-medical"></i>
+	</span>
+</a> <span data-ng-if="!cnf||cnf.show_title!='no'"> &nbsp;
+		{{ctrl.page_title}} </span>
+</span>

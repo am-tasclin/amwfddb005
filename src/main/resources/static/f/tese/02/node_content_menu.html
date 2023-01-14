@@ -1,0 +1,44 @@
+<div class="w3-tiny" style="width: 180px">
+    <div>
+        <a href="#" ng-click="ctrl.content_menu.upElement(el)" title="догори" class="w13-bar-item w3-button"><i
+                class="fas fa-caret-up"></i></a> <a href="#" ng-click="ctrl.content_menu.downElement(el)" title="донизу"
+            class="w13-bar-item w3-button"><i class="fas fa-caret-down"></i></a>
+        | <button class="w3-btn" data-ng-click="ctrl.content_menu.addElement(adnId)" title="Додати дочірній запис"><i
+                class="fa fa-plus"></i></button>
+        <button class="w3-btn" data-ng-click="ctrl.content_menu.minusElement(adnId)" title="Видалити запис"><i
+                class="fa fa-minus"></i></button>
+    </div>
+    <div class="w3-border-top">
+        <i class="fas fa-edit w3-text-blue w3-btn" data-ng-click="ctrl.conf.subSepMenuName = null"></i>
+        <i class="fas fa-edit w3-btn" title="Редагувати назву поля"
+            data-ng-click="ctrl.content_menu.typeElement('name',adnId)"></i>
+        <div data-ng-include="'adn_editor.html'" class="w3-dropdown-content w3-card-4 w13-container w3-leftbar"
+            data-ng-if="ctrl.conf.subSepMenuName==('name_'+adnId)">
+        </div>
+    </div>
+
+    <div class="w3-border-top">
+        <button data-ng-click="ctrl.content_menu.copyElement(adnId)" class="w3-btn"><i class="fa fa-copy"></i></button>
+        <button data-ng-click="ctrl.content_menu.cutElement(adnId)" class="w3-btn"><i class="fa fa-cut"></i></button>
+        <button data-ng-click="ctrl.content_menu.pasteElement(adnId)" class="w3-btn"><i
+                class="fa fa-paste"></i></button>
+        <div class="w3-dropdown-content w3-card-4 w13-container w3-leftbar"
+            data-ng-if="ctrl.conf.subSepMenuName==('paste_'+adnId)">
+            <div>
+                <button data-ng-click="ctrl.content_menu.pasteElementContent(adnId)" class="w3-btn"
+                    title="вставка - Копії елемента тут"><i class="fa fa-paste"></i></button>
+                {{ctrl.conf.copyAdnId}}
+            </div>
+            <div>
+                <button data-ng-click="ctrl.content_menu.pasteElementReference1(adnId)" class="w3-btn"
+                    title="вставка - Посилання 1 на елемент">1 type <i class="fas fa-share"></i></button>
+                {{ctrl.conf.eMap[adnId].reference}}
+            </div>
+            <div>
+                <button data-ng-click="ctrl.content_menu.pasteElementReference2(adnId)" class="w3-btn"
+                    title="вставка - Посилання 2 на елемент">2 value <i class="fas fa-share"></i></button>
+                {{ctrl.conf.eMap[adnId].reference2}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<!--    <span class="w3-small"> {{ctrl.date | date:'medium'}} </span> -->
+<div class="w3-row">
+    <div class="w3-half" style="height: 79vh; overflow: auto;" data-ng-repeat="lr in ['l','r']"
+        data-ng-class="{'w3-topbar':lr==ctrl.singlePage.session.selectedLR}">
+        <div data-ng-include="'/f/tese/02/treeADN.html'"
+            data-ng-repeat="(k,adnId) in ctrl.singlePage.session.tree[lr].id">
+        </div>
+    </div>
+</div>

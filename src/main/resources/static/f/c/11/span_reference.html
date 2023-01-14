@@ -1,0 +1,11 @@
+<span> {{ctrl.doctype_short[d.doctype_r]}}{{d.doctype_r}} <span
+	data-ng-init="switch_id=d.reference"
+	data-ng-include="'/f/c/11/icons.html'"></span> <span
+	data-ng-if="ctrl.eMap[d.reference].reference==ctrl.eMap[d.reference].parent">
+</span> &nbsp;<span
+	data-ng-repeat="switch_id in [ctrl.eMap[d.reference].reference]"
+	data-ng-include="'/f/c/11/icons.html'"></span>{{d.r1value}}:{{d.reference}}
+	<span data-ng-if="d.reference && !d.r1value">
+		{{ctrl.eMap[d.reference].r1value}}:{{ctrl.eMap[d.reference].reference}}
+</span>
+</span>

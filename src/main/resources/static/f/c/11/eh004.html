@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp" data-ng-controller="AppCtrl as ctrl" lang="uk-UA">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ctrl.page_title}}</title>
+	<link rel="stylesheet" href="/webjars/font-awesome/6.1.0/css/all.min.css">
+	<link rel="stylesheet" href="/f/css/w3.css">
+	<link rel="stylesheet" href="/f/css/am.css">
+	<link rel="shortcut icon" href="/f/img/algoritmed.ico" type="image/x-icon">
+	<script src="/webjars/angular/1.8.3/angular.min.js"></script>
+	<script src="/webjars/angular-i18n/1.8.2/angular-locale_uk-ua.js"></script>
+	<script src="/webjars/angular-sanitize/1.8.2/angular-sanitize.min.js" type="application/javascript"></script>
+	<script src="/webjars/angular-route/1.8.2/angular-route.min.js" type="application/javascript"></script>
+	<script src="/f/js/app004.js"></script>
+	<script src="/f/js/crud004.js"></script>
+	<script src="/f/wf001/wf001.js"></script>
+	<script src="/f/c/11/eh004.js"></script>
+</head>
+
+<body data-ng-click="ctrl.bodyClick()">
+	<div class="w3-container am-max-width-1">
+		<div class="w3-border-bottom w3-display-container">
+			<span data-ng-repeat="cnf in [{show_title:'no'}]" data-ng-include="'/f/home-link.html'"
+				class="w3-small0 am-b"></span>
+			<!--
+					{{[...ctrl.request.path].reverse().join('/')}}.html?doc2doc={{ctrl.doc2doc_ids.join(',')}}
+				-->
+			<img src="/f/img/algoritmed-logo.webp" width="75px;" />
+			<a data-ng-clickStop="ctrl.reload_page()" href="{{ctrl.reverced_page_link()}}"> <span class="am-b w3-small">
+					{{ctrl.page_title}} </span>
+			</a> <i class="fas fa-sliders-h w3-hover-shadow" data-ng-click="ctrl.change_panel()"></i>
+			<div class="w3-right">
+				<a href="/f/mdm/1/i.html#!/tree_{{ctrl.page_title.split('.')[1]}}" class="w3-tiny w3-opacity"
+					target="_blank">
+					<span class="am-b"> M&D-M:</span>&nbsp;MCrDB</a>,
+				<span class="w3-tiny am-b"> meta-data-editor <sub>v.03 (ontology)</sub> </span>
+				<span data-ng-include="'/f/btn-to-login.html'"></span>
+			</div>
+		</div>
+		<div data-ng-if="ctrl.eMap[ctrl.doc2doc_ids[1]].open_children">
+			<div class="w3-tiny w3-right" data-ng-repeat="ddEl in [ctrl.eMap[ctrl.doc2doc_ids[1]]]">
+				<span data-ng-include="'/f/c/11/mc_window_icon.html'"></span> <span
+					data-ng-include="'/f/c/11/mc_panel_icon.html'"></span>
+			</div>
+			<div data-ng-include="'/f/c/11/invoice/invoice002.html'"></div>
+			<div data-ng-include="'/f/c/11/sql_exe/f.html'"></div>
+			<div data-ng-if="369940==ctrl.eMap[ctrl.doc2doc_ids[1]].reference" data-ng-include="'/f/c/11/wiki/f.html'">
+			</div>
+		</div>
+		<div class="w3-row w3-border-right" data-ng-if="!ctrl.eMap[ctrl.doc2doc_ids[1]].open_children">
+			<div class="w3-half w3-border-right">
+				<div class="w3-tiny " data-ng-include="'/f/c/11/dd_head.html'"
+					data-ng-repeat="ddEl in [ctrl.eMap[ctrl.doc2doc_ids[0]]]"></div>
+				<div data-ng-if="!ctrl.eMap[ctrl.doc2doc_ids[0]].open_children" data-ng-repeat="oCon in [{edEl_id:ctrl.doc2doc_ids[0], 
+				edpv:'value'
+				}] " data-ng-include="'/f/c/11/data_model.html'"></div>
+				<div data-ng-include="'/f/c/11/invoice/invoice002.html'"></div>
+				<div data-ng-include="'/f/c/11/sql_exe/f.html'"></div>
+				<div data-ng-if="369940==ctrl.eMap[ctrl.doc2doc_ids[1]].reference"
+					data-ng-include="'/f/c/11/wiki/f.html'"></div>
+			</div>
+			<div class="w3-half ">
+				<div class="w3-tiny " data-ng-include="'/f/c/11/dd_head.html'"
+					data-ng-repeat="ddEl in [ctrl.eMap[ctrl.doc2doc_ids[1]]]"></div>
+				<div data-ng-repeat="oCon in [{edEl_id:ctrl.doc2doc_ids[1],
+				edpv:'value2'
+				}] " data-ng-include="'/f/c/11/data_model.html'"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

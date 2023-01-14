@@ -1,0 +1,60 @@
+<div>
+	<div class="w3-row w3-light-gray w3-small w3-border-bottom">
+		<div class="w3-col" style="width: 130px">
+			<div class="w3-right w3-tiny">{{ctrl.eMap[oCon.edEl_id].children.length}}</div>
+			<span class="w3-dropdown-hover w3-hover-shadow "> <span>☰<span
+					data-ng-repeat="edpv in [oCon.edpv]"
+					data-ng-include="'/f/dev4/fa_ed_protocol.html'"></span>
+			</span> {{ctrl.eMap[oCon.edEl_id].doc_id}} 
+				<div class="w3-dropdown-content w3-card-4">
+					<a href="#"
+						ng-click="ctrl.content_menu.addElement(ctrl.eMap[oCon.edEl_id])"
+						title="Додати запис" class="w3-button"><i class="fa fa-plus"></i></a>
+				</div>
+			</span>
+		</div>
+		<div class="w3-col w3-right" style="width: 33px">
+			<span class="w3-dropdown-hover w3-hover-shadow w3-light-gray">
+				&nbsp; <i class="fas fa-ellipsis-v"></i> &nbsp;
+				<div class="w3-dropdown-content w3-card-4 w3-left w3-right-align"
+					style="right: -3px;">
+					<span class="w3-bar w3-tiny"><span
+						class="w3-btn w3-ripple w3-padding-small"
+						data-ng-click="ctrl.go_up_level2(0,ctrl.eMap[oCon.edEl_id].parent)">
+							<i class="fas fa-level-up-alt fa-flip-horizontal"></i>
+					</span> [{{ctrl.eMap[oCon.edEl_id].parent}}] <span
+						class="w3-btn w3-ripple w3-padding-small"
+						data-ng-click="ctrl.go_up_level2(1,ctrl.eMap[oCon.edEl_id].parent)">
+							<i class="fas fa-level-up-alt"></i>
+					</span> </span>
+					<div>&nbsp;</div>
+				</div>
+			</span>
+		</div>
+		<div class="w3-rest w3-border-left">
+			<span class="w3-text-blue"> &nbsp; <i class="fas fa-tools"></i>
+				<i class="fas fa-terminal"></i>
+			</span> <span class="w3-btn w3-ripple w3-tiny w3-padding-small"
+				title="colapse children"
+				data-ng-click="ctrl.click_data_model_close_children(ctrl.eMap[oCon.edEl_id])">
+				<i class="fas fa-ellipsis-v"></i> <i class="fas fa-reply-all"></i>
+			</span><span class="w3-btn w3-ripple w3-tiny w3-padding-small"
+				data-ng-class="{'w3-disabled':!ctrl.eMap[oCon.edEl_id].parent}"
+				data-ng-click="ctrl.go_up_level(oCon.edEl_id)"
+				title="go up to -> {{ctrl.eMap[oCon.edEl_id].parent}}"> <i
+				data-ng-if="0==ctrl.doc2doc_ids.indexOf(oCon.edEl_id)"
+				class="fas fa-level-up-alt fa-flip-horizontal"></i>
+				{{ctrl.eMap[oCon.edEl_id].parent}} <i
+				data-ng-if="1==ctrl.doc2doc_ids.indexOf(oCon.edEl_id)"
+				class="fas fa-level-up-alt "></i>
+			</span>
+		</div>
+	</div>
+	<div class="w3-border-bottom" style="height: 88vh; overflow: auto;">
+		<div data-ng-repeat="children in [ctrl.eMap[oCon.edEl_id].children]"
+			data-ng-include="'/f/c/11/data_model_children.html'"></div>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+	</div>
+</div>

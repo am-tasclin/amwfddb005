@@ -1,0 +1,27 @@
+<div>
+    <div> &nbsp;
+        <i class="fas fa-edit"></i>&nbsp;edit
+        <button data-ng-click="ctrl.saveEditRow()" class="w3-btn w3-padding-small w3-border">save</button>
+    </div>
+    <span data-ng-repeat="(k,v) in ctrl.singlePage.session.selectedRow"
+        data-ng-if="!['table_id','row_id'].includes(k) && k.split('_')[1]!='id'">
+        {{k.split('_')[0]}}
+        <span data-ng-switch="k.split('_')[1]">
+            <span data-ng-switch-when="24">
+                <input type="number" step=".1" data-ng-model="ctrl.singlePage.session.selectedRow[k]">
+            </span>
+            <span data-ng-switch-default>
+                <textarea rows="1" style="min-width: 100px; width: 150px; min-height: 30px; "
+                    data-ng-model="ctrl.singlePage.session.selectedRow[k]"></textarea>
+            </span>
+        </span>
+    </span>
+    <hr>
+
+    <span data-ng-repeat="m in [ctrl.conf.eMap[ctrl.singlePage.session.sql.split('_')[1]]]">
+        type={{m.reference}}/{{m.r_value_22}}
+        <span data-ng-repeat="(k,v) in m" data-ng-if="v">
+            |{{k}}|
+        </span>
+    </span>
+</div>

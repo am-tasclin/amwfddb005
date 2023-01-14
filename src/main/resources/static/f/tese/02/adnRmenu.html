@@ -1,0 +1,41 @@
+<span class=" w3-dropdown-hover w3-hover-shadow w3-white">
+    <button title="{{ctrl.conf.eMap[adnId].parent}}" data-ng-click="ctrl.conf.adn.cr.tree[lr].parent(adnId)"
+        data-ng-if="ctrl.singlePage.session.tree[lr].id.includes(adnId)"
+        class="w3-btn w3-ripple w3-padding-small w3-left">
+        ↧
+    </button>
+    <span class="w3-opacity w3-small"> &nbsp; &nbsp;<i class="fas fa-ellipsis-v"></i>
+    </span> &nbsp;
+    <div class="w3-dropdown-content w3-card-4 w3-left w3-right-align w3-small11" style="right: 1px;">
+        <div class="w3-tiny">p:{{ctrl.conf.eMap[adnId].parent}}</div>
+        <button data-ng-click="ctrl.conf.adn.cr.tree.l.plus(adnId)" class="w3-btn w3-ripple w3-padding-small"><i
+                class="fas fa-level-up-alt fa-flip-horizontal"></i></button>
+        [{{adnId}}]
+        <button data-ng-click="ctrl.conf.adn.cr.tree.r.plus(adnId)" class="w3-btn w3-ripple w3-padding-small"><i
+                class="fas fa-level-up-alt"></i></button>
+        <div data-ng-if="ctrl.conf.eMap[adnId].reference" class="w3-left">
+            <button data-ng-click="ctrl.conf.adn.cr.tree.l.plus(ctrl.conf.eMap[adnId].reference)"
+                class="w3-btn w3-ripple w3-padding-small"><i
+                    class="fas fa-level-up-alt fa-flip-horizontal"></i></button>
+            (r:{{ctrl.conf.eMap[adnId].reference}})
+            <button data-ng-click="ctrl.conf.adn.cr.tree.r.plus(ctrl.conf.eMap[adnId].reference)"
+                class="w3-btn w3-ripple w3-padding-small"><i class="fas fa-level-up-alt"></i></button>
+        </div>
+        <div data-ng-if="ctrl.conf.eMap[adnId].reference2" class="w3-right">
+            <button data-ng-click="ctrl.conf.adn.cr.tree.l.plus(ctrl.conf.eMap[adnId].reference2)"
+                class="w3-btn w3-ripple w3-padding-small"><i
+                    class="fas fa-level-up-alt fa-flip-horizontal"></i></button>
+            (r2:{{ctrl.conf.eMap[adnId].reference2}})
+            <button data-ng-click="ctrl.conf.adn.cr.tree.r.plus(ctrl.conf.eMap[adnId].reference2)"
+                class="w3-btn w3-ripple w3-padding-small"><i class="fas fa-level-up-alt"></i></button>
+        </div>
+        <div
+            data-ng-if="ctrl.singlePage.session.tree[lr].id.includes(adnId) && ctrl.singlePage.session.tree[lr].id.length > 1">
+            <button data-ng-click="ctrl.conf.adn.cr.tree[lr].up(adnId)" title="догори" class="w3-btn"><i
+                    class="fas fa-caret-up"></i></button> <button data-ng-click="ctrl.conf.adn.cr.tree[lr].dn(adnId)"
+                title="донизу" class="w3-button"><i class="fas fa-caret-down"></i></button>
+            <button class="w3-left w3-btn" data-ng-click="ctrl.conf.adn.cr.tree[lr].minus(adnId)"> <i
+                    class="fa fa-minus"></i> </button>
+        </div>
+    </div>
+</span>

@@ -1,0 +1,16 @@
+<span
+	data-ng-class="{'w3-bottombar w3-border-yellow':ctrl.sql_exe.sql_id==d.doc_id}">
+	<span> <span data-ng-if="!d.children"> ☰ </span> <span
+		data-ng-if="d.children"> <i class="fas fa-ellipsis-h"
+			data-ng-if="d.children && d.open_children"></i> <span
+			data-ng-if="d.children && !d.open_children"> <i
+				class="fas fa-ellipsis-v"></i>&nbsp;&nbsp;
+		</span>
+	</span>
+</span> <span
+data-ng-class="{
+	'w3-pale-yellow':ctrl.content_menu.copyObject.doc_id==el.doc_id}">
+	[{{d.doc_id}}]</span> {{ctrl.doctype_short[d.doctype]}}{{d.doctype}} <i
+	data-ng-if="ctrl.doctype_fa[d.doctype]"
+	class="{{ctrl.doctype_fa[d.doctype]}}"></i>
+</span>

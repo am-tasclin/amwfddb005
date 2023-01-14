@@ -1,0 +1,64 @@
+<div data-ng-mouseover="ctrl.mouseover_item=adnId" class="w3-hover-shadow" data-ng-class="{'w3-card w3-light-green':ctrl.isSelectADN(adnId, lr, k),
+        'w3-light-gray':ctrl.singlePage.session.tree[lr].id[k]==adnId,}">
+    <span class="w3-dropdown-hover w3-white">
+        <span class="w3-tiny" title="{{ctrl.conf.eMap[adnId].doctype}}"> [{{adnId}}{{
+            ctrl.conf.eMap[adnId].doctype && (
+            24==ctrl.conf.eMap[adnId].doctype ? ',f':
+            25==ctrl.conf.eMap[adnId].doctype ? ',ts':
+            32==ctrl.conf.eMap[adnId].doctype ? ',s':
+            22==ctrl.conf.eMap[adnId].doctype ? ',s':'')
+            }}<sub data-ng-if="ctrl.conf.eMap[adnId].doctype==32">[]</sub>]
+            <i data-ng-if="ctrl.getConf('doctype_fa')[ctrl.conf.eMap[adnId]
+            .doctype]" class="{{ctrl.getConf('doctype_fa')
+                [ctrl.conf.eMap[adnId].doctype]}} w3-opacity"></i>
+        </span>
+        <i class="fas fa-edit w3-text-blue w3-tiny" data-ng-if="ctrl.conf.subSepMenuName.indexOf(adnId)>=0"></i>
+        <div class="w3-dropdown-content w3-border" data-ng-include="'/f/tese/02/node_content_menu.html'"></div>
+    </span>
+    <!-- ||ctrl.conf.eMap[adnId].value_u_22) ? '':'--?--' 
+        ||ctrl.conf.eMap[adnId].value_u_22) ? '':'-?-'
+        ||ctrl.conf.eMap[adnId].value_u_22) ? '':'|'
+    -->
+    <span data-ng-click="ctrl.selectADN(adnId, lr)">
+        <a class="w3-hover-shadow am-0u" href="#!/children_{{adnId}}_{{lr}}">
+            {{
+            ctrl.conf.eMap[adnId].doc_id
+            && (ctrl.conf.eMap[adnId].value_22
+            ||ctrl.conf.eMap[adnId].reference33
+            ||ctrl.conf.eMap[adnId].value_u_22) ? '':':'
+            }}{{ctrl.conf.eMap[adnId].value_22
+            ||ctrl.conf.eMap[adnId].value_u_22
+            ||ctrl.conf.eMap[adnId].value_24
+            }}{{ctrl.conf.eMap[adnId].doctype==37?'[]':''
+            }}{{ctrl.conf.eMap[adnId].value_25|date:'shortDate'}}{{ctrl.conf.eMap[adnId].value_25&&','
+            }}{{ctrl.conf.eMap[adnId].value_25|date:'shortTime'}}
+            <span class="w3-tiny" title="r:{{ctrl.conf.eMap[adnId].reference
+    }}" data-ng-if="ctrl.conf.eMap[adnId]
+    .rr_value_22">{{ctrl.conf.eMap[adnId].rr_value_22}}::{{
+                ctrl.conf.eMap[adnId].r_doctype == 37?'[]':''
+                }}</span><span class="w3-tiny" title="r:{{ctrl.conf.eMap[adnId].reference
+        }}" data-ng-if="ctrl.conf.eMap[adnId]
+        .r_value_22">{{ctrl.conf.eMap[adnId].r_value_22}}:{{
+                ctrl.conf.eMap[adnId].r_doctype == 37?'[]':''}} </span>
+            <span class="w3-small am-i" title="r:{{ctrl.conf.eMap[adnId].reference2
+                }}" data-ng-if="ctrl.conf.eMap[adnId]
+                .r2_value_22">{{ctrl.conf.eMap[adnId].r2_value_22}}</span>
+        </a><sub class="w3-tiny" data-ng-if="ctrl.conf.eMap[adnId].reference
+        ||ctrl.conf.eMap[adnId].reference2">(<span data-ng-if="ctrl
+            .conf.eMap[adnId].reference">r:{{ctrl.conf.eMap[adnId].reference
+                }}</span><span data-ng-if="ctrl.conf.eMap[adnId]
+            .reference2">, r2:{{ctrl.conf.eMap[adnId].reference2}}<span
+                    data-ng-repeat="r2Obj in [ctrl.conf.eMap[ctrl.conf.eMap[adnId].reference2]]">::{{
+                    r2Obj.value_22||(r2Obj.r_value_22+':'+r2Obj.r2_value_22)
+                    }}</span></span>)
+        </sub><sup class="w3-tiny am-b" data-ng-if="ctrl.hasADNClosedChild(adnId, lr)">
+            [{{ctrl.conf.parentChild[adnId].length}}]
+        </sup><span data-ng-if="ctrl.mouseover_item==adnId" class="w3-right" data-ng-include="'/f/tese/02/adnRmenu.html'">
+        </span>
+    </span>
+</div>
+<div class="w3-border-left w3-container" data-ng-if="ctrl.singlePage.session.tree[lr]
+        .openIds.includes(adnId) && ctrl.conf.parentChild[adnId]">
+    <div data-ng-repeat="adnId in ctrl.conf.parentChild[adnId]" data-ng-include="'/f/tese/02/treeADN.html'">
+    </div>
+</div>

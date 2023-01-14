@@ -1,0 +1,54 @@
+<div data-ng-repeat="d in children" data-ng-init="el=d">
+	<div data-ng-mouseover="ctrl.mouseover_item=d.doc_id" class="w3-hover-shadow" data-ng-class="{
+		'w3-border w3-border-green':d.doc_id==ctrl.choice_data_model_obj.doc_id,
+		'w3-light-gray':d.doc_id==ctrl.doc2doc_fd[ctrl.doc2doc_ids[1]].doc_id 
+		|| ctrl.doc2doc_ids[1]==d.doc_id 
+		|| ctrl.eMap[ctrl.doc2doc_ids[1]].parent==d.doc_id,
+		'w3-light-gray w3-border':d.doc_id==ctrl.doc2doc_fd[ctrl.doc2doc_ids[1]].folder.doc_id,
+		}">
+		<span class="w3-tiny w3-dropdown-hover w3-hover-shadow w3-white">
+			<span data-ng-include="'/f/c/11/data_model_item/node_abstrack_info.html'"></span>
+			<i class="fas fa-edit w3-text-blue" data-ng-if="ctrl.content_menu.subSepMenuName.indexOf(el.doc_id)>=0"></i>
+			<div class="w3-dropdown-content w3-card-4" style="width: 180px"
+				data-ng-include="'/f/c/11/data_model_item/node_content_menu.html'">
+			</div>
+		</span> 
+		<a data-ng-if="d.value_1_22.indexOf('http')==0" class="w3-btn" target="_blank"
+			href="{{d.value_1_22}}"><i class="fas fa-external-link-alt"></i></a> <a class="w3-hover-shadow"
+			data-ng-class="{'w3-tiny':d.value_1_22.indexOf('http')==0}" href="#"
+			data-ng-click="ctrl.select_tree_item(d)"> <span data-ng-repeat="switch_id in [d.doc_id]"
+				data-ng-include="'/f/c/11/icons.html'"></span> <span data-ng-if="!(d.value_1_22.length>40)">
+				{{d.value_1_22}} </span> <span title="{{d.value_1_22}}" data-ng-if="d.value_1_22.length>40">
+				{{d.value_1_22.substring(0,40)}} <span title="{{d.value_1_22.length}}"> ... </span>
+			</span> {{d.value_1_23}}{{d.value_1_24}}{{d.uuid}} {{d.value_1_26 |
+			date:'mediumDate'}} {{d.value_1_25 | date:'mediumDate'}}
+			{{d.value_1_25 | date:'mediumTime'}} <span data-ng-if="d.i18n">
+				: {{d.i18n}} </span> <span
+				data-ng-if="!(d.value_1_22 || d.value_1_23 || d.value_1_24) && !d.i18n && !d.reference">
+				-- ? -- </span> <span class="w3-tiny" data-ng-if="d.reference"><span
+					data-ng-include="'/f/c/11/span_reference.html'"> </span></span> <span class="w3-tiny"
+				data-ng-if="d.reference2"> <span data-ng-switch="d.reference2"> <i data-ng-switch-when="369364"
+						class="fas fa-calculator"></i>
+				</span> <span class="w3-tiny" data-ng-switch="ctrl.eMap[d.reference2].reference"> <i
+						data-ng-switch-when="369379" class="fas fa-layer-group"></i>
+				</span> {{'{'+d.reference2+':'+ctrl.eMap[d.reference2].value_1_22+'}'}}
+			</span>
+		</a> <span class="w3-tiny" data-ng-switch="ctrl.eMap[d.reference].reference2"> <i data-ng-switch-when="369364"
+				class="fas fa-calculator"></i><i data-ng-switch-when="369365" class="fas fa-spell-check"></i>
+		</span> <sup data-ng-if="d.children && !d.open_children" class="w3-tiny am-b">[{{d.children.length}}]</sup>
+		<span data-ng-repeat="d in [ctrl.eMap[d.reference2]]"
+			data-ng-if="ctrl.views_template_list.indexOf(d.reference)>=0"
+			data-ng-include="'/f/c/11/v/'+d.reference+'/v_span.html'"></span>
+		<span data-ng-if="ctrl.views_template_list.indexOf(d.reference)>=0"
+			data-ng-include="'/f/c/11/v/'+d.reference+'/v_span.html'"></span>
+		<span data-ng-if="ctrl.mouseover_item==d.doc_id" class="w3-right"
+			data-ng-include="'/f/c/11/data_model_item/node_move_menu.html'">
+		</span>
+	</div>
+	<div class="w3-card w3-leftbar" data-ng-if="ctrl.content_menu.subSepMenuName=='pin_name_'+d.doc_id">
+		<div data-ng-include="'/f/c/11/data_model_edit/ed_obj_name.html'"></div>
+	</div>
+	<div data-ng-if="d.children && d.open_children" class="w3-border-left w3-container">
+		<div data-ng-repeat="children in [d.children]" data-ng-include="'/f/c/11/data_model_children.html'"></div>
+	</div>
+</div>

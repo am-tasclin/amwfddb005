@@ -1,0 +1,71 @@
+<div>
+	<div>
+		<a href="#" ng-click="ctrl.content_menu.upElement(el)" title="догори" class="w13-bar-item w3-button"><i
+				class="fas fa-caret-up"></i></a> <a href="#" ng-click="ctrl.content_menu.downElement(el)" title="донизу"
+			class="w13-bar-item w3-button"><i class="fas fa-caret-down"></i></a>
+		| <a href="#" ng-click="ctrl.content_menu.addElement(el)" title="Додати запис" class="w3-button"><i
+				class="fa fa-plus"></i></a>
+		<a href="#" ng-click="ctrl.content_menu.minusElement(el)" title="Видалити запис" class="w3-button"><i
+				class="fa fa-minus"></i></a>
+	</div>
+	<div class="w3-border-top">
+		<i class="fas fa-edit w3-text-blue w3-btn" data-ng-click="ctrl.content_menu.subSepMenuName = null"></i>
+		<i class="fas fa-edit w3-btn" title="Редагувати назву поля"
+			data-ng-click="ctrl.content_menu.typeElement('name',el)"></i>
+		<i class="fas fa-globe w3-btn" title="Редагувати переклад"
+			data-ng-click="ctrl.content_menu.typeElement('i18n',el)"></i> <span>
+			<i class="fas fa-hashtag w3-btn"
+				data-ng-click="ctrl.content_menu.typeElement('type',el);ctrl.initTypesList();" title="Тип вузла"></i>
+			<div class="w3-dropdown-content w3-card-4 w3-container w3-leftbar"
+				data-ng-include="'/f/c/11/data_model_item/node_edit_menu.html'" data-ng-if="ctrl.content_menu.subSepMenuName.indexOf(el.doc_id)>=0 && 
+							!(ctrl.content_menu.subSepMenuName.indexOf('paste_')==0)
+							">
+			</div>
+		</span>
+	</div>
+	<div class="w3-border-top">
+		<a href="#" ng-click="ctrl.content_menu.copyElement(el)" title="копія" class="w13-bar-item w3-button"><i
+				class="fa fa-copy"></i></a> <a href="#" ng-click="ctrl.content_menu.cutElement(el)" title="вирізка"
+			class="w13-bar-item w3-button"><i class="fa fa-cut"></i></a> <a href="#"
+			ng-click="ctrl.content_menu.pasteElement(el)" title="вставка" class="w13-bar-item w3-button"><i
+				class="fa fa-paste"></i></a> {{ctrl.content_menu.subSepMenuName}}
+		<div class="w3-dropdown-content w3-card-4 w13-container w3-leftbar" style="width: 320px" data-ng-if="ctrl.content_menu.subSepMenuName.indexOf(el.doc_id)>=0 && 
+							ctrl.content_menu.subSepMenuName.indexOf('paste_')==0
+							">
+			<div>
+				<span class="w3-btn" data-ng-click="ctrl.content_menu.pasteElementContent(el)"
+					title="вставка - Копії елемента"> &nbsp; <i class="fa fa-paste"></i>
+				</span> {{ctrl.content_menu.copyObject.doc_id}}
+				({{ctrl.content_menu.copyObject.countWithChildren}})
+			</div>
+			<div>
+				<span class="w3-btn" data-ng-click="ctrl.content_menu.pasteElementReference1(el)"
+					title="вставка - Посилання 1 на елемент">1 type <i class="fas fa-share"></i>
+				</span> <span data-ng-if="el.reference"> <span
+						data-ng-click="ctrl.content_menu.expandNodeData(d.reference)" class="w3-hover-shadow"> {{'
+						'+d.reference+' '}}
+						{{ctrl.eMap[d.reference].r1value}}:{{ctrl.eMap[d.reference].reference}}
+					</span> <i class="fas fa-eraser w3-btn" title="зтерти"
+						data-ng-click="ctrl.content_menu.deleteElementReference1(el)"></i>
+				</span>
+			</div>
+			<div>
+				<span class="w3-btn" data-ng-click="ctrl.content_menu.pasteElementReference2(el)"
+					title="вставка - Посилання 2 на елемент">2 value <i class="fas fa-share"></i>
+				</span> <span data-ng-if="el.reference2">
+					<span data-ng-click="ctrl.content_menu.expandNodeData(d.reference2)" class="w3-hover-shadow">
+						{{'{'+d.reference2+'}'}}
+						{{ctrl.eMap[d.reference2].value_1_22}} <{{ ctrl.eMap[d.reference2].r1value }}
+							:{{ctrl.eMap[d.reference2].reference}} </span> <i class="fas fa-eraser w3-btn"
+								title="зтерти" data-ng-click="ctrl.content_menu.deleteElementReference2(el)"></i>
+					</span>
+			</div>
+			<div>
+				<span class="w3-btn" data-ng-click="ctrl.content_menu.pasteElementChildContent(el)"
+					title="перенесення - Вкладеного Елемента "> <i class="fas fa-project-diagram"></i> <i
+						class="fa fa-paste"></i>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

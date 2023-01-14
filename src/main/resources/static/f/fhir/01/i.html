@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="uk-UA" data-ng-controller="InitPageController as cr">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="/f/img/algoritmed.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/webjars/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="/f/css/w3.css">
+    <link rel="stylesheet" href="/f/css/am.css">
+
+    <script src="/webjars/angular/1.8.3/angular.min.js" type="application/javascript"></script>
+    <script src="/webjars/angular-i18n/1.8.2/angular-locale_uk-ua.js" type="application/javascript"></script>
+    <script src="/webjars/angular-route/1.8.2/angular-route.min.js" type="application/javascript"></script>
+    <script src="/webjars/angular-resource/1.8.2/angular-resource.min.js" type="application/javascript"></script>
+    <script src="/webjars/angular-sanitize/1.8.2/angular-sanitize.min.js" type="application/javascript"></script>
+    <script src="/f/js/algoritmed.AngularJS.lib01.js"></script>
+    <script src="i.js" type="application/javascript"></script>
+</head>
+
+<body class="w3-container">
+    <div class="w3-border-bottom am-max-width-1">
+        <a href="/" class="w3-btn w3-border1 w3-padding-small w3-small">
+            <img style="display: flex;" src="/f/css/homeIcon.svg">
+        </a>
+        <img src="/f/img/algoritmed-logo.webp" width="75px;" />
+        FHIR_Concept⁙Implementation
+        <div class="w3-right w3-small">
+            <span data-ng-class="{'w3-border-left':cr.pl.men.u}" data-ng-click="cr.pl.men.u=null">
+                ☰:
+            </span>
+            <span class="w3-hover-shadow" data-ng-click="cr.pl.men.u=menuItem"
+                data-ng-repeat="menuItem in ['DEC','Info']"
+                data-ng-class="{'w3-bottombar':cr.pl.men.u==menuItem, 'w3-border-top':cr.pl.men.u!=menuItem, }">
+                {{menuItem}}
+            </span>
+        </div>
+        <div data-ng-if="cr.pl.men.u=='Info'" class="w3-border-top w3-border-right">
+            ☰ <span class="w3-small">
+                <button class="w3-btn w3-padding-small" data-ng-click="cr.pl.show_am002l()">show_am002l</button>
+            </span>
+            <div>
+                <span class="w3-right">⚕⚖: ℞♩</span>
+            </div>
+
+            <div data-ng-if="cr.pl.men.Info" data-ng-repeat="rule in cr.pl.men.Info.list" class="w3-border-top">
+                <div>
+                    <span class="w3-tiny">{{rule.doc_id}}</span>
+                    <span title="rule:{{rule.doc_id}}">⟠:</span>
+                    <span data-ng-repeat="ifItem in rule.ifs_list">
+                        <sub>if</sub> якщо( {{ifItem.addresses_code}}:{{ifItem.addresses_display}}
+                    </span>
+                    <span data-ng-repeat="ifItem in rule.ifsQuantity_list">
+                        {{ifItem.quantity_comparator}}
+                        {{ifItem.detailquantity_value}}
+                        <span class="w3-tiny">
+                            ::{{ifItem.measure_code}}:{{ifItem.measure_display}}
+                        </span>
+                    </span>
+                    ) то {
+                    <div data-ng-if="cr.pl.men.Info" data-ng-repeat="careplan in cr.pl.men.Info.carePlan.list"
+                        class="w3-border-top w3-container">
+                        <span class="w3-tiny">{{careplan.doc_id}}</span>
+                        <span title="CarePlan:{{careplan.doc_id}}"> 📓: </span>
+                        <span data-ng-repeat="carePlan_activity in cr.pl.men.Info.carePlan_activity.list">
+                            <span class="w3-tiny"> {{carePlan_activity.doc_id}} </span>
+                            {{carePlan_activity.mr_medication}}
+                            <span
+                                data-ng-if="carePlan_activity.doc_id == dosageInstruction_doseQuantity.plannedactivityreference_id"
+                                data-ng-repeat="dosageInstruction_doseQuantity in cr.pl.men.Info.dosageInstruction_doseQuantity.list">
+                                {{dosageInstruction_doseQuantity.qy_value}}
+                                {{dosageInstruction_doseQuantity.qy_code}}
+                            </span>
+                        </span>
+                        <span class="w3-tiny"> {{careplan.careplan_title}} </span>
+                    </div>
+                    }
+                    <span class="w3-tiny">
+                        {{rule.goal_note_anotation_text}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w3-right w3-small">
+        Data Element Concept :DEC
+    </div>
+    <div class="w3-border-bottom">
+        <div data-ng-repeat="listName in ['reList','patternList']">
+            {{cr.pl.session.sumListLength(cr.pl.session[listName], 0)}}<span data-ng-if="listName=='reList'"
+                class="w3-tiny">::type::Conceptual</span> =
+            <span data-ng-repeat=" e in cr.pl.session[listName]">{{$index>0?' +
+                ':''}}{{cr.pl.session[e].length}}</span>,
+            <span class="w3-tiny" data-ng-repeat=" e in cr.pl.session[listName]">{{$index>0?' + ':''}}{{e}}</span>
+        </div>
+    </div>
+    <div class="w3-row">
+        <div class="w3-quarter">
+            <div class="w3-border-bottom">
+                <a class="w3-right" href="https://build.fhir.org/metadataresource.html#2.1.26.8">2.1.26.8 Resource
+                    MetadataResource</a>
+                <div class="w3-small am-b">
+                    <span class="am-n"> {{cr.pl.session.MetadataResource01.length}} </span>
+                    {{cr.pl.getSqlApp('MetadataResource01').name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session.MetadataResource01 ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.v}}
+                    {{item.srv}}
+                </div>
+            </div>
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['CanonicalResource01'] ">
+                <a class="w3-right" href="https://build.fhir.org/canonicalresource.html">2.1.26.7 Resource
+                    CanonicalResource</a>
+                <div class="w3-small am-b">
+                    <span class="am-n"> {{cr.pl.session[itemName].length}} </span>
+                    {{cr.pl.getSqlApp(itemName).name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session[itemName] ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.v}}
+                </div>
+            </div>
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['Resource01'] ">
+                <div class="w3-small am-b">
+                    <span class="am-n"> {{cr.pl.session[itemName].length}} </span>
+                    {{cr.pl.getSqlApp(itemName).name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session[itemName] ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.v}}
+                </div>
+            </div>
+
+            <a class="w3-right" href="https://build.fhir.org/domainresource.html">2.1.26.6 DomainResource Resource</a>
+            <div class="w3-small am-b">
+                <span class="am-n"> {{cr.pl.session.DomainResource01.length}} </span>
+                {{cr.pl.getSqlApp('DomainResource01').name}}
+            </div>
+            <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session.DomainResource01 ">
+                <span class="w3-tiny">{{item.doc_id}}</span>
+                {{item.value}}
+            </div>
+        </div>
+        <div class="w3-quarter">
+            <div class="w3-small am-b">
+                <span class="am-n"> {{cr.pl.session.BackboneElement02.length}} </span>
+                {{cr.pl.getSqlApp('BackboneElement02').name}}
+            </div>
+            <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session.BackboneElement02 "
+                data-ng-class="{'w3-border-bottom':cr.pl.session.BackboneElement02[$index+1].reference!=item.reference}">
+                <span class="w3-tiny">{{item.doc_id}}</span><span class="w3-tiny"
+                    data-ng-if="cr.pl.session.BackboneElement02[$index-1].reference!=item.reference">:{{item.reference}}
+                </span>
+                <span data-ng-class="{'w3-tiny':cr.pl.conf.containNumer(item.pps)}">{{item.pps}}</span>.<br
+                    data-ng-if="cr.pl.conf.containNumer(item.pps)" />{{item.ps}}.{{item.v}}
+            </div>
+        </div>
+        <div class="w3-quarter">
+            <a class="w3-right" href="https://build.fhir.org/types.html#BackboneElement">2.1.26.0.3 BackboneElement</a>
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['Event01'] ">
+                <div class="w3-small am-b">
+                    <span class="am-n"> {{cr.pl.session.BackboneElement01.length}} </span>
+                    {{cr.pl.getSqlApp('BackboneElement01').name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session.BackboneElement01 ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.ps}}.{{item.v}}
+                </div>
+            </div>
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['Request01'] ">
+                <a class="w3-right" href="https://build.fhir.org/request.html">12.4 Pattern Request</a>
+                <div class="w3-small am-b">
+                    <span class="am-n"> {{cr.pl.session[itemName].length}} </span>
+                    {{cr.pl.getSqlApp(itemName).name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session[itemName] ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.v}}<span class="w3-tiny">::{{item.srv}} </span>
+                </div>
+            </div>
+            <div class="w3-border-bottom w3-topbar">
+                <a href="https://build.fhir.org/types.html">
+                    <h6>2.1.26.0 FHIR Type Framework</h6>
+                </a>
+            </div>
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['Element01'] ">
+                <div class="w3-small am-b">
+                    <span class="am-n"> {{cr.pl.session[itemName].length}} </span>
+                    {{cr.pl.getSqlApp(itemName).name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session[itemName] ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.v}}<span class="w3-tiny">::{{item.srv}} </span>
+                </div>
+            </div>
+        </div>
+        <div class="w3-quarter">
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['Logical01'] ">
+                <div class="w3-small am-b">
+                    <span class="am-n"> {{cr.pl.session[itemName].length}} </span>
+                    {{cr.pl.getSqlApp(itemName).name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session[itemName] ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.v}}
+                    {{item.srv}}
+                </div>
+            </div>
+            <div class="w3-border-bottom w3-topbar">
+                <a href="https://build.fhir.org/workflow.html#list">
+                    <h6>12.9.1.1 Workflow resources</h6>
+                </a>
+            </div>
+            <div class="w3-border-bottom">
+                <a class="w3-right" href="https://build.fhir.org/definition.html">12.3 Pattern Definition</a>
+                <div class="w3-small am-b">
+                    <span class="am-n"> {{cr.pl.session.Definition01.length}} </span>
+                    {{cr.pl.getSqlApp('Definition01').name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session.Definition01 ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.v}}<span class="w3-tiny">::{{item.srv}} </span>
+                </div>
+            </div>
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['Event01'] ">
+                <a class="w3-right" href="https://build.fhir.org/event.html">12.5 Pattern Event</a>
+                <div class="w3-small am-b">
+                    <span class="am-n"> {{cr.pl.session[itemName].length}} </span>
+                    {{cr.pl.getSqlApp(itemName).name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session[itemName] ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.v}}<span class="w3-tiny">::{{item.srv}} </span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+    <p>&nbsp;</p>
+</body>
+
+</html>

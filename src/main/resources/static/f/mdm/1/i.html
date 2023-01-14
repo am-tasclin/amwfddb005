@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="uk-UA" data-ng-controller="InitPageController as ctrl">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="/f/img/algoritmed.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/webjars/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="/f/css/w3.css">
+    <link rel="stylesheet" href="/f/css/am.css">
+
+    <script src="/webjars/angular/1.8.3/angular.min.js" type="application/javascript"></script>
+    <script src="/webjars/angular-i18n/1.8.2/angular-locale_uk-ua.js" type="application/javascript"></script>
+    <script src="/webjars/angular-route/1.8.2/angular-route.min.js" type="application/javascript"></script>
+    <script src="/webjars/angular-resource/1.8.2/angular-resource.min.js" type="application/javascript"></script>
+    <script src="/webjars/angular-sanitize/1.8.2/angular-sanitize.min.js" type="application/javascript"></script>
+
+    <script src="/f/kassa2r/lib-init.js" type="application/javascript"></script>
+    <script src="/f/tese/01/lib.sql002.js" type="application/javascript"></script>
+    <script src="/f/tese/02/config.sql.js" type="application/javascript"></script>
+    <script src="i.js" type="application/javascript"></script>
+</head>
+
+<body class="w3-container">
+    <div class="w3-border-bottom am-max-width-1">
+        <a href="/" class="w3-btn w3-border1 w3-padding-small w3-small">
+            <img style="display: flex;" src="/f/css/homeIcon.svg">
+        </a>
+        <img src="/f/img/algoritmed-logo.webp" width="75px;" />
+
+        <span class="w3-dropdown-hover">
+            <a class="w3-btn w3-padding-small w3-border w3-small" href="#!/tree">
+                <i class="fas fa-project-diagram"></i>
+            </a>
+            <div class="w3-dropdown-content w3-leftbar w3-border w3-container">
+                &nbsp;
+                <a class="w3-small "
+                    href="#!/tree_{{ctrl.singlePage.session.tree.l.id.join('_')}},{{ctrl.singlePage.session.tree.r.id.join('_')}}">
+                    <div class="w3-hover-shadow">
+                        tree_{{ctrl.singlePage.session.tree.l.id.join('_')}},{{ctrl.singlePage.session.tree.r.id.join('_')}}
+                    </div>
+                </a>
+                <p class="w3-hover-shadow">
+                    item_2
+                </p>
+            </div>
+        </span>
+        <a class="w3-btn w3-padding-small w3-border w3-small" href="#!/sql_SelectADN">
+            <i class="fas fa-database"></i>
+        </a>
+        <a class="w3-btn w3-padding-small w3-border w3-small" href="#!/init_{{ctrl.initSession()}}">
+            <i class="fas fa-redo"></i>
+        </a>
+        &nbsp;⁙
+        <span class="w3-small"> <span class="am-b"> M&D-M </span> <sub>MCrDB</sub> </span>
+        <span class="w3-right">
+            <span class="w3-opacity w3-tiny am-b"> meta-data&data modeler <sub>v.01
+                    (<a href="/f/c/11/eh004.html?doc2doc={{ctrl.singlePage.session.tree.l.
+                    id[0]}},{{ctrl.singlePage.session.tree.r.id[0]}}" target="_blank">ontology</a>-?✍<a
+                        href="/f/kassa3r/r2tab.html#!/sql_FHIRs_Group">SQL</a>&nbsp;editor)</sub>
+            </span>
+            <i class="fas fa-sign-in-alt"></i>
+            </a>
+        </span>
+    </div>
+    <div class="w3-border-bottom am-max-width-1 am-inner-scroll">
+        <span class="w3-small">Моделювання даних і їх структур з кодом автоматичного SQL</span>
+        <span class="w3-small"> {{ctrl.date | date:'medium'}} </span>
+        <span class="w3-right">
+            <span class="w3-dropdown-hover">
+                <input class="w3-border w3-small" style="width:10em;" data-ng-model="ctrl.r1r2Use.r1r2"
+                    data-ng-keypress="ctrl.seekr1r2($event)">
+                <div class="w3-dropdown-content w3-border" style="right:-1em;">
+                    <table class="w3-small w3-center" style="white-space: nowrap;">
+                        <tr data-ng-if="ctrl.r1r2Use.isN()">
+                            <td>
+                                <input class="w3-border" data-ng-model="ctrl.r1r2Use.r1"
+                                    data-ng-keypress="ctrl.seekr12($event)">
+                            </td>
+                            <td> ⏎ </td>
+                            <td>
+                                <input class=" w3-border" data-ng-model="ctrl.r1r2Use.r2"
+                                    data-ng-keypress="ctrl.seekr12($event)">
+                            </td>
+                        </tr>
+                        <tr class=" w3-tiny am-b">
+                            <th>r1</th>
+                            <th>p</th>
+                            <th>r2</th>
+                        </tr>
+                        <tr data-ng-repeat="r in ctrl.r1r2Use.list">
+                            <td data-ng-repeat="a in ['doc_id','parent', 'doc_id'] track by $index">
+                                <button data-ng-click="ctrl.conf.adn.cr.tree.l.plus(r[a])" data-ng-if="'parent'==a"
+                                    class="w3-btn w3-ripple w3-padding-small"><i
+                                        class="fas fa-level-up-alt fa-flip-horizontal"></i></button>
+                                <span>{{r[a]}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </span>
+            <a href="https://www.compart.com/en/unicode/U+232A" class="am-0u"> 〉 </a>
+        </span>
+        <div class="ng-view"></div>
+
+    </div>
+</body>
+
+</html>

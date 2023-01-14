@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk-UA" data-ng-controller="InitPageController as cr">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="/f/img/algoritmed.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/webjars/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="/f/css/w3.css">
+    <link rel="stylesheet" href="/f/css/am.css">
+
+    <script src="/webjars/angular/1.8.3/angular.min.js" type="application/javascript"></script>
+    <script src="/webjars/angular-i18n/1.8.2/angular-locale_uk-ua.js" type="application/javascript"></script>
+    <script src="/webjars/angular-route/1.8.2/angular-route.min.js" type="application/javascript"></script>
+    <script src="/webjars/angular-resource/1.8.2/angular-resource.min.js" type="application/javascript"></script>
+    <script src="/webjars/angular-sanitize/1.8.2/angular-sanitize.min.js" type="application/javascript"></script>
+    <script src="/f/js/algoritmed.AngularJS.lib01.js"></script>
+    <script src="i.js" type="application/javascript"></script>
+</head>
+
+<body class="w3-container">
+    <div class="w3-border-bottom am-max-width-1">
+        <a href="/" class="w3-btn w3-border1 w3-padding-small w3-small">
+            <img style="display: flex;" src="/f/css/homeIcon.svg">
+        </a>
+        <img src="/f/img/algoritmed-logo.webp" width="75px;" />
+        FHIR Terminology viewer
+    </div>
+    <div class="w3-border-bottom">
+        〉 type:key:value →
+        <span class="w3-small">
+            <span data-ng-repeat="itemName in ['CodeSystemTitle']">
+                {{cr.pl.session[itemName].length}}</span>:<span
+                data-ng-repeat="itemName in ['ValueSetTitle']">{{cr.pl.session[itemName].length}}</span>:<span
+                data-ng-repeat="itemName in ['UseValueSet']">{{cr.pl.session[itemName].length}}</span>
+        </span>
+    </div>
+    <div class="w3-row">
+        <div class="w3-quarter">
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['CodeSystemTitle'] ">
+                <div class="w3-small am-b">
+                    <span class="am-n w3-medium"> {{cr.pl.session[itemName].length}}::type </span>
+                    {{cr.pl.getSqlApp(itemName).name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session[itemName] ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    <span class="w3-small"> {{item.title}} </span>
+                </div>
+            </div>
+        </div>
+        <div class="w3-quarter">
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['ValueSetTitle'] ">
+                <div class="w3-small am-b">
+                    <span class="am-n w3-medium"> {{cr.pl.session[itemName].length}}::key </span>
+                    {{cr.pl.getSqlApp(itemName).name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session[itemName] ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    <span class="w3-small"> {{item.title}} </span>
+                </div>
+            </div>
+        </div>
+        <div class="w3-half">
+            <div class="w3-border-bottom" data-ng-repeat="itemName in ['UseValueSet'] ">
+                <div class="w3-small am-b">
+                    <span class="am-n w3-medium"> {{cr.pl.session[itemName].length}}::value </span>
+                    {{cr.pl.getSqlApp(itemName).name}}
+                </div>
+                <div class="w3-hover-shadow" data-ng-repeat="item in cr.pl.session[itemName] ">
+                    <span class="w3-tiny">{{item.doc_id}}</span>
+                    {{item.c}}{{item.c_id==item.parent?'.':'..'}}{{item.sr?item.sr:item.srr}}
+                    <span class="w3-tiny">{{item.vs_id}}:{{cr.pl.session.eMap[item.vs_id].title}} </span>
+                    <span class="w3-small"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p>&nbsp;</p>
+</body>
+
+</html>

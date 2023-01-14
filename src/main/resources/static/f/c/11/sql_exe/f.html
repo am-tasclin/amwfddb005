@@ -1,0 +1,87 @@
+<div data-ng-if="ctrl.sql_exe.list2exe">
+	<div class="w3-light-gray">
+		<div class="w3-right">
+			<button data-ng-click="ctrl.request.changeView('sqloff')" class="w3-btn w3-padding-small">
+				<i class="fas fa-tools"></i>
+			</button>
+			<button class="w3-btn w3-padding-small"
+				data-ng-click="ctrl.sql_exe.show_sql_type='value_1_22'">каскад</button>
+			<button class="w3-btn w3-padding-small" data-ng-click="ctrl.sql_exe.show_sql_type='read_sql'">
+				<i class="fas fa-terminal"></i>
+			</button>
+		</div>
+		SQL <span data-ng-repeat="(v,k) in ctrl.sql_exe.list2exe"> |
+			<span data-ng-class="{'w3-yellow':ctrl.sql_exe.sql_id==v}">
+				<a data-ng-if="371985!=ctrl.eMap[v].reference" data-ng-click="ctrl.sql_exe.read(v)" href="#"> {{v}} </a>
+				<span data-ng-if="371985==ctrl.eMap[v].reference">
+					<span title="new code" class="w3-tiny">
+						<a data-ng-click="ctrl.sql_exe.read_select3(v)" href="#">rs3</a>-
+						<a data-ng-click="ctrl.sql_exe.read_select2(v)" href="#">rs2</a>-</span><a
+						data-ng-click="ctrl.sql_exe.read_select(v)" href="#">{{v}}</a>
+				</span>
+			</span>
+		</span>
+	</div>
+	<div data-ng-if="!ctrl.request.parameters.views || ctrl.request.parameters.views.indexOf('sqloff')<0">
+		<div class="w3-tiny w3-border-bottom am-b w3-hover-shadow w3-light-gray"
+			data-ng-click="ctrl.sql_exe.notShow_sql=!ctrl.sql_exe.notShow_sql">
+			<i class="fas fa-terminal"></i>:
+			{{ctrl.eMap[ctrl.eMap[ctrl.sql_exe.sql_id].ref_to_col[371335]].value_1_22}}
+		</div>
+		<div data-ng-repeat="seek_id in [ctrl.sql_exe.rs2_id]" data-ng-include="'/f/c/11/sql_exe/exe_seek.html'"></div>
+		<div data-ng-if="ctrl.sql_exe.rs2_id" class="w3-small w3-responsive">
+			<div data-ng-include="'/f/c/11/sql_exe/sql_build.html'"></div>
+			<pre data-ng-if="ctrl.sql_exe.show_sql_type=='read_sql'">
+{{ctrl.sql_exe.sql_exe}}
+				</pre>
+			<div data-ng-if="ctrl.sql_exe.show_sql_type!='read_sql'">
+				<pre><span
+						data-ng-repeat="v in ctrl.sql_exe.sql.split(':sql_')"
+							>{{$index>0?':sql_':''}}{{v.split(' ')[0]}}<a class="am-b" href="#"
+							data-ng-click="ctrl.sql_exe.add2exe(v.split(' ')[0]);"
+							 data-ng-if="ctrl.eMap[v.split(' ')[0]]">{{ctrl.sql_exe.sql_name(v.split(' ')[0])}}</a>{{v.replace(v.split(' ')[0],'')}}</span>
+							</pre>
+			</div>
+		</div>
+		<div data-ng-if="371985==ctrl.eMap[ctrl.sql_exe.sql_id].reference">
+			{{ctrl.eMap[ctrl.sql_exe.sql_id].sql}}
+		</div>
+		<div data-ng-repeat="type_id in [371682,371820]">
+			<div class="" data-ng-if="ctrl.eMap[ctrl.sql_exe.sql_id].ref_to_col[type_id]">
+				<i class="fas fa-search"></i> <input class="w3-border " data-ng-change="ctrl.sql_exe.change_sql_seek()"
+					data-ng-model="ctrl.eMap[ctrl.eMap[ctrl.sql_exe.sql_id].ref_to_col[type_id]].r2value">
+				<div class="w3-dropdown-click">
+					<span data-ng-click="ctrl.sql_exe.read_seek_list()"> <i class="fas fa-list"></i>
+						{{ctrl.eMap[ctrl.eMap[ctrl.sql_exe.sql_id].ref_to_col[type_id]].r2value}}
+					</span>
+					<div class="w3-dropdown-content w3-bar-block w3-border"
+						data-ng-class="{'w3-show':ctrl.sql_exe.show_seek_list}">
+						<a href="#" class="w3-bar-item w3-button"
+							data-ng-click="ctrl.sql_exe.set_sql_seek(itemEl, type_id)"
+							data-ng-repeat="itemEl in ctrl.eMap[ctrl.eMap[ctrl.sql_exe.sql_id].ref_to_col[type_id]].children">
+							{{itemEl.value_1_22}} </a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="w3-tiny w3-responsive" data-ng-if="!ctrl.sql_exe.notShow_sql">
+			<div data-ng-if="ctrl.sql_exe.show_sql_type=='value_1_22'">
+				<pre>
+<span
+						data-ng-repeat="v in ctrl.eMap[ctrl.sql_exe.sql_id].value_1_22.split(':sql_')"><a
+						data-ng-if="$index>0" href="#"
+						data-ng-click="ctrl.sql_exe.add2exe(v.split(' ')[0]);ctrl.sql_exe.read(v.split(' ')[0])">:sql_{{v.split(' ')[0]}}:<b>{{
+	ctrl.eMap[ctrl.eMap[v.split(' ')[0]].ref_to_col[371335]].value_1_22}}</b></a>{{$index>0?v.replace(v.split(' ')[0],''):v}}</span>
+</pre>
+			</div>
+			<pre data-ng-if="ctrl.sql_exe.show_sql_type=='read_sql' || !ctrl.sql_exe.show_sql_type">
+{{ctrl.sql_exe.read_sql}}
+</pre>
+		</div>
+		<div class="w3-responsive" data-ng-repeat="tab in [ctrl.sql_exe.readList]"
+			data-ng-include="'/f/c/11/sql_exe/tab.html'"></div>
+	</div>
+	<!-- 
+		data-ng-include="'/r/html/371565'"></div>
+		 -->
+</div>
