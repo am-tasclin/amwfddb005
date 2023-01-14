@@ -8,16 +8,18 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class CreditIdService {
-    private static final String API_BASE_URL = "http://localhost:8080";
+    
+    // private static final String API_BASE_URL = "http://localhost:8002";
+    private static final String API_BASE_URL = "http://localhost:8005";
     private RestTemplate restTemplate;
 
     HttpEntity<Map<String, Object>> creditid_generate(Long dbId) {
-        HttpEntity entity = new HttpEntity("Hello World");
-        return entity;
+        return restTemplate.getForObject(API_BASE_URL + "/h3/" + dbId, HttpEntity.class);
     }
 
-    HttpEntity<Map<String, Object>> creditid_ask(Long dbId) {
-        return null;
+    public Map<String, Object> creditid_ask(Long dbId) {
+        String string = API_BASE_URL + "/h3/" + dbId;
+        return restTemplate.getForObject(string, Map.class);
     }
 
     public HttpEntity<Map<String, Object>> test01(Map m) {

@@ -56,6 +56,8 @@ public class HelloResource {
 
    @GetMapping("/h3/{id}")
    public Map<String, Object> h3(@PathVariable Long id) {
+      System.out.println(123);
+      System.out.println(id);
       Map<String, Object> m = new HashMap<>();
       m.put("p1", id);
       m.put("p2", "2");
