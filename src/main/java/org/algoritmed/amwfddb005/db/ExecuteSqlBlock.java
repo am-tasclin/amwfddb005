@@ -4,25 +4,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.IntSupplier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
+@PropertySource("classpath:sql.properties")
 public class ExecuteSqlBlock {
     protected static final Logger logger = LoggerFactory.getLogger(ExecuteSqlBlock.class);
+    protected @Autowired Environment env;
+    static AtomicInteger ai = new AtomicInteger(0);
 
     public List<Map<String, Object>> readSelect(String sql, Map<String, Object> map) {
         List<Map<String, Object>> queryForList = dbParamJdbcTemplate.queryForList(sql, map);
         return queryForList;
     }
 
+    public IntSupplier incrementAtomicInteger = () -> ai.incrementAndGet();
+
     public void writeReadSQL(Map<String, Object> data) {
         String sql = (String) data.get("sql");
+        logger.info("--36-- \n" + data.get("clientDbId"));
+        logger.info("--36-- \n" + data);
+        logger.info("--37-- \n" + sql);
         int i = 0;
         for (String sql_command : sql.split(";")) {
             String sql2 = sql_command.trim();
@@ -100,6 +112,11 @@ public class ExecuteSqlBlock {
         eqb.updateNewIds(sql, data);
     }
 
-    // static AtomicInteger ai;
+    public List<Map<String, Object>> qForList(String sql, Map<String, Object> map) {
+        // logger.info("37 sql = \n" +sql);
+        List<Map<String, Object>> list = dbParamJdbcTemplate.queryForList(sql, map);
+        // logger.info("39 list = \n" +list);
+        return list;
+    }
 
 }

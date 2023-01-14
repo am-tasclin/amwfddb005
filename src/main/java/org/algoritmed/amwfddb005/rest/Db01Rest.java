@@ -24,13 +24,13 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("r")
 public class Db01Rest {
     protected static final Logger logger = LoggerFactory.getLogger(Db01Rest.class);
-    static AtomicInteger ai = new AtomicInteger(0);
+    
 
     @GetMapping("url_sql_read_db1")
     public Map<String, Object> url_sql_read_db1(@RequestParam(value = "sql", required = true) String sql,
             HttpServletRequest request) {
         // Map<String, Object> map = new HashMap<String, Object>();
-        logger.info(" -32- " + ai.incrementAndGet() + " GET /r/url_sql_read_db1");
+        logger.info(" -32- " + executeSqlBlock.incrementAtomicInteger.getAsInt() + " GET /r/url_sql_read_db1");
         Map<String, Object> map = sqlParamToMap(request);
         List<Map<String, Object>> queryForList = executeSqlBlock.readSelect(sql, map);
         map.put("list", queryForList);
@@ -40,7 +40,7 @@ public class Db01Rest {
     @Transactional
     @PostMapping("url_sql_read_db1")
     public Map<String, Object> url_sql_read_db1(@RequestBody Map<String, Object> data, Principal principal) {
-        logger.info(" -55- POST " + ai.incrementAndGet() + " /r/url_sql_read_db1");
+        logger.info(" -55- POST " + executeSqlBlock.incrementAtomicInteger.getAsInt() + " /r/url_sql_read_db1");
         String sql = (String) data.get("sql");
         executeSqlBlock.updateNewIds(sql, data);
         // System.out.println(data);
