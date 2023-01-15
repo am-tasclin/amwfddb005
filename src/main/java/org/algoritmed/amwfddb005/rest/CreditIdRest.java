@@ -37,13 +37,13 @@ public class CreditIdRest {
     public Map<String, Object> creditid_ask() {
         long selfDbId = creditIdSqlComponent.getSelfDbId();
         logger.info("--38-- " + selfDbId);
-        Map<String, Object> map = creditIdSqlComponent.postMasterCreditIdGenerate(selfDbId);
-        Map m = creditIdSqlComponent.getList1_0(map);
+        Map<String, Object> data = creditIdSqlComponent.postMasterCreditIdGenerate(selfDbId);
+        Map m = creditIdSqlComponent.getList1_0(data);
         m.put("ts2", Timestamp.valueOf(((String) m.get("ts")).substring(0, 23).replace("T", " ")));
         logger.info("--35-- " + m);
-        creditIdSqlComponent.postClientIdCreditFromMaster(m);
+        creditIdSqlComponent.postClientIdCreditFromMaster(data);
         logger.info("--40-- " + m);
-        return map;
+        return data;
     }
 
 }

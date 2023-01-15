@@ -22,6 +22,7 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
 
     /**
      * On MASTER DB
+     * 
      * @param clientDbId
      * @return
      */
@@ -36,7 +37,7 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         logger.info("-----28----- \n" + data);
         writeReadSQL(data);
         Map m = getList1_0(data);
-        Map m2 =restartSequence(data, m.get("to_id"));
+        Map m2 = restartSequence(m.get("to_id"));
         data.put("masterSequence", m2);
         return data;
     }
@@ -46,11 +47,11 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         return m;
     }
 
-    private Map restartSequence(Map<String, Object> data, Object toId) {
+    private Map restartSequence(Object newSequenceId) {
         String sql2 = env.getProperty("sql_app.RESTART_SEQUENCE");
-        sql2 = sql2.replace(":restart", "" + toId);
+        sql2 = sql2.replace(":restart", "" + newSequenceId);
         Map m2 = new HashMap<>();
-        m2.put("restart", toId);
+        m2.put("restart", newSequenceId);
         m2.put("sql", sql2);
         logger.info("--36--\n" + m2);
         writeReadSQL(m2);
@@ -65,12 +66,20 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         return null;
     }
 
+    /**
+     * On CLIENT DB
+     * 
+     * @param data
+     * @return
+     */
     public Map<String, Object> postClientIdCreditFromMaster(Map data) {
         String sql = env.getProperty("sql_app.INSERT_ClientIdCreditFromMaster");
         data.put("sql", sql);
         writeReadSQL(data);
+        logger.info("-72- " + data);
         Map m = getList1_0(data);
-        Map m2 =restartSequence(data, m.get("from_id"));
+        logger.info("-74- " + m);
+        Map m2 = restartSequence(m.get("from_id"));
         data.put("clientSequence", m2);
         return data;
     }
