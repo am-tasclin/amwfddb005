@@ -13,13 +13,14 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     // private static final String API_BASE_URL = "http://localhost:8002";
     private static final String API_BASE_URL = "http://localhost:8005";
 
-    public Map<String, Object> test02(long clientDbId) {
+    public Map<String, Object> generateCreditId(long clientDbId) {
         String sql = env.getProperty("sql_app.INSERT_masterForClientIdCredit");
         // Map<String, Object> data = Map.of("clientDbId", clientDbId, "sql", sql);
         Map<String, Object> data = new HashMap<>();
         data.put("clientDbId", clientDbId);
         data.put("increment", 3);
         data.put("sql", sql);
+        logger.info("--23--",  data);
         writeReadSQL(data);
         return data;
     }

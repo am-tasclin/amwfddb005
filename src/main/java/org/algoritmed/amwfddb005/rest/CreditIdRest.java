@@ -22,14 +22,14 @@ public class CreditIdRest {
 
     @GetMapping("creditid_ask/{selfDbId}")
     public Map<String, Object> creditid_ask(@PathVariable Long selfDbId) {
-        return creditIdSqlComponent.test02(selfDbId);
+        return Map.of("H","ello","W","orld!");
     }
-
+    
     @PostMapping("creditid_generate/{clientDbId}")
     public Map<String, Object> creditidGenerate(@PathVariable Long clientDbId) {
         Map<String, Object> m = Map.of("clientDbId", clientDbId, "p3", "p3value");
         logger.info("--32-- " + m);
-        return m;
+        return creditIdSqlComponent.generateCreditId(clientDbId);
     }
 
     @GetMapping("creditid_ask")
