@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.algoritmed.amwfddb005.db.ExecuteSqlBlock;
 import org.slf4j.Logger;

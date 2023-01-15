@@ -33,7 +33,6 @@ public class CreditIdRest {
         long selfDbId = creditIdSqlComponent.getSelfDbId();
         logger.info("--38-- " + selfDbId);
         Map<String, Object> map = creditIdSqlComponent.postMasterCreditIdGenerate(selfDbId);
-        // List l = ((List) map.get("list1")).get(0);
         Map m = (Map)((List) map.get("list1")).get(0);
         m.put("ts2", Timestamp.valueOf(((String)m.get("ts")).substring(0,23).replace("T", " ")));
         logger.info("--35-- " + m);
@@ -42,25 +41,5 @@ public class CreditIdRest {
         return map;
     }
 
-    // @GetMapping("test01")
-    // HttpEntity<Map<String, Object>> test01() {
-    // Map m = Map.of("m", "m", "m2", 2);
-    // return creditIdService.test01(m);
-    // }
-
-    // @GetMapping("test02")
-    // Map<String, Object> test02() {
-    // Map m = Map.of("m", "clientDbId", "x", "2", "m2", (long) 2);
-    // return creditIdService.creditid_ask((Long) m.get("m2"));
-    // }
-
-    // protected @Autowired CreditIdService creditIdService;
-
-
-    // @GetMapping("creditid_ask/{selfDbId}")
-    // public Map<String, Object> creditid_ask(@PathVariable Long selfDbId) {
-    //     return Map.of("H","ello","W","orld!");
-    // }
-    
 
 }

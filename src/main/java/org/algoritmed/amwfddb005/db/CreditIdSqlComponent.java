@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Component
 public class CreditIdSqlComponent extends ExecuteSqlBlock {
     protected static final Logger logger = LoggerFactory.getLogger(CreditIdSqlComponent.class);
@@ -29,9 +32,9 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         writeReadSQL(data);
         Map m = (Map) ((List) data.get("list1")).get(0);
         String sql2 = env.getProperty("sql_app.RESTART_SEQUENCE");
-        sql2=sql2.replace(":restart", ""+m.get("to_id"));
+        sql2 = sql2.replace(":restart", "" + m.get("to_id"));
         Map m2 = new HashMap<>();
-        m2.put("restart", m.get("to_id") );
+        m2.put("restart", m.get("to_id"));
         m2.put("sql", sql2);
         data.put("m2", m2);
         logger.info("--36--\n" + m2);
@@ -69,6 +72,21 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     }
 
     public static void main(String[] args) {
+        Map m = new HashMap<>();
+        m.put("x", "s");
+        m.put("y", 1);
+        m.put("z", 2);
+        m.put("a", "2");
+        // Map.of("x","s","y",1);
+        logger.info("-75- " + m);
+        logger.info("-75- " + m);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        final Xy xy = objectMapper.convertValue(m, Xy.class);
+        logger.info("-85- " + xy);
+    }
+
+    public static void main2(String[] args) {
         String s = "2023-01-15T16:04:53.320+00:00";
         System.out.println(s);
         System.out.println(s.substring(0, 23));
