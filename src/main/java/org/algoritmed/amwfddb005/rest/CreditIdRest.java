@@ -21,9 +21,14 @@ public class CreditIdRest {
 
     protected @Autowired CreditIdSqlComponent creditIdSqlComponent;
 
+    /**
+     * On MASTER DB
+     * @param clientDbId
+     * @return
+     */
     @PostMapping("creditid_generate/{clientDbId}")
     public Map<String, Object> creditidGenerate(@PathVariable Long clientDbId) {
-        Map<String, Object> m = Map.of("clientDbId", clientDbId, "p3", "p3value");
+        Map<String, Long> m = Map.of("clientDbId", clientDbId);
         logger.info("--32-- " + m);
         return creditIdSqlComponent.generateCreditId(clientDbId);
     }
@@ -33,13 +38,12 @@ public class CreditIdRest {
         long selfDbId = creditIdSqlComponent.getSelfDbId();
         logger.info("--38-- " + selfDbId);
         Map<String, Object> map = creditIdSqlComponent.postMasterCreditIdGenerate(selfDbId);
-        Map m = (Map)((List) map.get("list1")).get(0);
-        m.put("ts2", Timestamp.valueOf(((String)m.get("ts")).substring(0,23).replace("T", " ")));
+        Map m = creditIdSqlComponent.getList1_0(map);
+        m.put("ts2", Timestamp.valueOf(((String) m.get("ts")).substring(0, 23).replace("T", " ")));
         logger.info("--35-- " + m);
         creditIdSqlComponent.postClientIdCreditFromMaster(m);
         logger.info("--40-- " + m);
         return map;
     }
-
 
 }

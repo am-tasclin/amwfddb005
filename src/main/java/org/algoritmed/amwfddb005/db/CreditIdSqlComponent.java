@@ -20,6 +20,11 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     private static final String API_BASE_URL = "http://localhost:8002";
     // private static final String API_BASE_URL = "http://localhost:8005";
 
+    /**
+     * On MASTER DB
+     * @param clientDbId
+     * @return
+     */
     public Map<String, Object> generateCreditId(long clientDbId) {
         String sql = env.getProperty("sql_app.INSERT_masterForClientIdCredit");
         sql += "; " + env.getProperty("sql_app.SELECT_generateCreditId");
@@ -30,16 +35,26 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         data.put("sql", sql);
         logger.info("-----28----- \n" + data);
         writeReadSQL(data);
+        Map m = getList1_0(data);
+        Map m2 =restartSequence(data, m.get("to_id"));
+        data.put("masterSequence", m2);
+        return data;
+    }
+
+    public Map getList1_0(Map<String, Object> data) {
         Map m = (Map) ((List) data.get("list1")).get(0);
+        return m;
+    }
+
+    private Map restartSequence(Map<String, Object> data, Object toId) {
         String sql2 = env.getProperty("sql_app.RESTART_SEQUENCE");
-        sql2 = sql2.replace(":restart", "" + m.get("to_id"));
+        sql2 = sql2.replace(":restart", "" + toId);
         Map m2 = new HashMap<>();
-        m2.put("restart", m.get("to_id"));
+        m2.put("restart", toId);
         m2.put("sql", sql2);
-        data.put("m2", m2);
         logger.info("--36--\n" + m2);
         writeReadSQL(m2);
-        return data;
+        return m2;
     }
 
     public Map<String, Object> test01(long clientDbId) {
@@ -54,6 +69,9 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         String sql = env.getProperty("sql_app.INSERT_ClientIdCreditFromMaster");
         data.put("sql", sql);
         writeReadSQL(data);
+        Map m = getList1_0(data);
+        Map m2 =restartSequence(data, m.get("from_id"));
+        data.put("clientSequence", m2);
         return data;
     }
 
