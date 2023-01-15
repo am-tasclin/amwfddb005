@@ -25,15 +25,16 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         data.put("clientDbId", clientDbId);
         data.put("increment", 3);
         data.put("sql", sql);
-        logger.info("--23--", data);
+        logger.info("-----28----- \n" + data);
         writeReadSQL(data);
         Map m = (Map) ((List) data.get("list1")).get(0);
         String sql2 = env.getProperty("sql_app.RESTART_SEQUENCE");
+        sql2=sql2.replace(":restart", ""+m.get("to_id"));
         Map m2 = new HashMap<>();
-        m2.put("restart", m.get("to_id"));
+        m2.put("restart", m.get("to_id") );
         m2.put("sql", sql2);
         data.put("m2", m2);
-        logger.info("--32--", m2);
+        logger.info("--36--\n" + m2);
         writeReadSQL(m2);
         return data;
     }
