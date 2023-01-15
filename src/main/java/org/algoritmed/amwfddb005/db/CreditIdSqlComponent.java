@@ -29,7 +29,9 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         writeReadSQL(data);
         Map m = (Map) ((List) data.get("list1")).get(0);
         String sql2 = "; " + env.getProperty("sql_app.RESTART_SEQUENCE");
-        Map m2 = Map.of("restart", m.get("to_id"), "sql", sql2);
+        Map m2 = new HashMap<>();
+        m2.put("restart", m.get("to_id"));
+        m2.put( "sql", sql2);
         data.put("m2", m2);
         logger.info("--32--", m2);
         writeReadSQL(m2);
