@@ -1,7 +1,8 @@
 package org.algoritmed.amwfddb005.rest;
 
-import java.util.HashMap;
+import java.sql.Timestamp;
 import java.util.Map;
+import java.util.List;
 
 import org.algoritmed.amwfddb005.db.CreditIdSqlComponent;
 import org.slf4j.Logger;
@@ -20,11 +21,6 @@ public class CreditIdRest {
 
     protected @Autowired CreditIdSqlComponent creditIdSqlComponent;
 
-    @GetMapping("creditid_ask/{selfDbId}")
-    public Map<String, Object> creditid_ask(@PathVariable Long selfDbId) {
-        return Map.of("H","ello","W","orld!");
-    }
-    
     @PostMapping("creditid_generate/{clientDbId}")
     public Map<String, Object> creditidGenerate(@PathVariable Long clientDbId) {
         Map<String, Object> m = Map.of("clientDbId", clientDbId, "p3", "p3value");
@@ -37,6 +33,12 @@ public class CreditIdRest {
         long selfDbId = creditIdSqlComponent.getSelfDbId();
         logger.info("--38-- " + selfDbId);
         Map<String, Object> map = creditIdSqlComponent.postMasterCreditIdGenerate(selfDbId);
+        // List l = ((List) map.get("list1")).get(0);
+        Map m = (Map)((List) map.get("list1")).get(0);
+        m.put("ts2", Timestamp.valueOf(((String)m.get("ts")).substring(0,23).replace("T", " ")));
+        logger.info("--35-- " + m);
+        creditIdSqlComponent.postClientIdCreditFromMaster(m);
+        logger.info("--40-- " + m);
         return map;
     }
 
@@ -53,5 +55,12 @@ public class CreditIdRest {
     // }
 
     // protected @Autowired CreditIdService creditIdService;
+
+
+    // @GetMapping("creditid_ask/{selfDbId}")
+    // public Map<String, Object> creditid_ask(@PathVariable Long selfDbId) {
+    //     return Map.of("H","ello","W","orld!");
+    // }
+    
 
 }
