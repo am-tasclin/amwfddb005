@@ -10,11 +10,12 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class CreditIdSqlComponent extends ExecuteSqlBlock {
     RestTemplate restTemplate = new RestTemplate();
-    // private static final String API_BASE_URL = "http://localhost:8002";
-    private static final String API_BASE_URL = "http://localhost:8005";
+    private static final String API_BASE_URL = "http://localhost:8002";
+    // private static final String API_BASE_URL = "http://localhost:8005";
 
     public Map<String, Object> generateCreditId(long clientDbId) {
         String sql = env.getProperty("sql_app.INSERT_masterForClientIdCredit");
+         sql += "; "+env.getProperty("sql_app.SELECT_generateCreditId");
         // Map<String, Object> data = Map.of("clientDbId", clientDbId, "sql", sql);
         Map<String, Object> data = new HashMap<>();
         data.put("clientDbId", clientDbId);
