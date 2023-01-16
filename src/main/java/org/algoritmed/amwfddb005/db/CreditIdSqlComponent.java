@@ -125,10 +125,15 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         logger.info("\n -125- " + sql);
         Map m = dbJdbcTemplate.queryForMap(sql);
         logger.info("\n -129- " + m.get("ismasterid") + "\n -127- " + m);
-        return  m;
+        return m;
     }
 
     public void writeReadMasterCreditId(Map<String, Object> data) {
         logger.info("\n -128- " + data);
+        Map<String, Object> map = this.restTemplate.postForObject(
+                API_BASE_URL + "/r/writeReadSQL",
+                data, Map.class);
+        logger.info("\n -128- " + map);
+
     }
 }

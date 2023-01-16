@@ -48,10 +48,14 @@ public class Db01Rest {
         return data;
     }
 
+    /**
+     * Run execute SQL-block with exist :nextDbId[09]
+     * @param data
+     */
     @Transactional
     @PostMapping("writeReadSQL")
     private void writeReadSQL(Map<String, Object> data) {
-        logger.info(" ------54- writeReadSQL" );
+        logger.info(" ------54- writeReadSQL" +data);
         executeSqlBlock.writeReadSQL(data);
     }
 
