@@ -50,14 +50,15 @@ public class Db01Rest {
 
     /**
      * Run execute SQL-block with exist :nextDbId[09]
+     * 
      * @param data
      */
     @Transactional
     @PostMapping("writeReadSQL")
     private void writeReadSQL(@RequestBody Map<String, Object> data) {
-        logger.info(" ------54- writeReadSQL " +data);
-        logger.info(" ------54- writeReadSQL " +this.executeSqlBlock);
-        logger.info(" ------54- writeReadSQL " +executeSqlBlock);
+        logger.info(" ------54- writeReadSQL " + data);
+        logger.info(" ------54- writeReadSQL " + this.executeSqlBlock);
+        logger.info(" ------54- writeReadSQL " + executeSqlBlock);
         executeSqlBlock.writeReadSQL(data);
     }
 
@@ -65,7 +66,7 @@ public class Db01Rest {
     private void toMaster(Map<String, Object> data) {
         try {
             Map m = creditIdSqlComponent.masterCreditIdMap(data);
-            if ((boolean) m.get("ismasterid")) {
+            if (null != m.get("ismasterid") && (boolean) m.get("ismasterid")) {
                 creditIdSqlComponent.writeReadMasterCreditId(data);
             }
         } catch (Exception e) {
