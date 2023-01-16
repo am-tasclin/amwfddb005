@@ -56,6 +56,8 @@ public class Db01Rest {
     @PostMapping("writeReadSQL")
     private void writeReadSQL(@RequestBody Map<String, Object> data) {
         logger.info(" ------54- writeReadSQL " +data);
+        logger.info(" ------54- writeReadSQL " +this.executeSqlBlock);
+        logger.info(" ------54- writeReadSQL " +executeSqlBlock);
         executeSqlBlock.writeReadSQL(data);
     }
 
