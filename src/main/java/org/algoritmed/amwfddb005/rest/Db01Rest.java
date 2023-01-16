@@ -53,12 +53,13 @@ public class Db01Rest {
      * 
      * @param data
      */
-    @Transactional
-    @PostMapping("writeReadSQL")
-    private void writeReadSQLRest(@RequestBody Map<String, Object> data) {
+    //@Transactional
+    @PostMapping("write_read_sql")
+    public Map<String, Object> write_read_sql(@RequestBody Map<String, Object> data) {
         logger.info(" ------54- writeReadSQL " + data);
         logger.info(" ------54- writeReadSQL " + executeSqlBlock);
         executeSqlBlock.writeReadSQL(data);
+        return data;
     }
 
     @Transactional
