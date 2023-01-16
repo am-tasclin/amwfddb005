@@ -42,7 +42,7 @@ public class Db01Rest {
         String sql = (String) data.get("sql");
         executeSqlBlock.updateNewIds(sql, data);
         // System.out.println(data);
-        writeReadSQL(data);
+        executeSqlBlock.writeReadSQL(data);
         toMaster(data);
         data.remove("sql");
         return data;
@@ -55,9 +55,8 @@ public class Db01Rest {
      */
     @Transactional
     @PostMapping("writeReadSQL")
-    private void writeReadSQL(@RequestBody Map<String, Object> data) {
+    private void writeReadSQLRest(@RequestBody Map<String, Object> data) {
         logger.info(" ------54- writeReadSQL " + data);
-        logger.info(" ------54- writeReadSQL " + this.executeSqlBlock);
         logger.info(" ------54- writeReadSQL " + executeSqlBlock);
         executeSqlBlock.writeReadSQL(data);
     }
