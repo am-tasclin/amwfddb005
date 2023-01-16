@@ -69,19 +69,17 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     /**
      * On CLIENT DB
      * 
-     * @param data
+     * @param data0Map
      * @return
      */
-    public Map<String, Object> postClientIdCreditFromMaster(Map data) {
+    public Map<String, Object> postClientIdCreditFromMaster(Map data0Map) {
         String sql = env.getProperty("sql_app.INSERT_ClientIdCreditFromMaster");
-        data.put("sql", sql);
-        writeReadSQL(data);
-        logger.info("-72- " + data);
-        Map m = getList1_0(data);
-        logger.info("-74- " + m);
-        Map m2 = restartSequence(m.get("from_id"));
-        data.put("clientSequence", m2);
-        return data;
+        data0Map.put("sql", sql);
+        writeReadSQL(data0Map);
+        logger.info("-72- " + data0Map);
+        Map m2 = restartSequence(data0Map.get("from_id"));
+        data0Map.put("clientSequence", m2);
+        return data0Map;
     }
 
     public Map<String, Object> postMasterCreditIdGenerate(long clientDbId) {
@@ -119,5 +117,18 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         System.out.println(s.substring(0, 23));
         Timestamp ts = Timestamp.valueOf(s.substring(0, 23).replace("T", " "));
         System.out.println(ts);
+    }
+
+    public Map masterCreditIdMap(Map<String, Object> data) {
+        String sql = env.getProperty("sql_app.SELECT_isMasterId");
+        // logger.info("\n -125- " + sql + "\n -123- " + data);
+        logger.info("\n -125- " + sql);
+        Map m = dbJdbcTemplate.queryForMap(sql);
+        logger.info("\n -129- " + m.get("ismasterid") + "\n -127- " + m);
+        return  m;
+    }
+
+    public void writeReadMasterCreditId(Map<String, Object> data) {
+        logger.info("\n -128- " + data);
     }
 }

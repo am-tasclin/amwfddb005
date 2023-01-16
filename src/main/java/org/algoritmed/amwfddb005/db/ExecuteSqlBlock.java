@@ -32,9 +32,7 @@ public class ExecuteSqlBlock {
 
     public void writeReadSQL(Map<String, Object> data) {
         String sql = (String) data.get("sql");
-        logger.info("--36-- \n" + data.get("clientDbId"));
         logger.info("--36-- \n" + data);
-        logger.info("--37-- \n" + sql);
         int i = 0;
         for (String sql_command : sql.split(";")) {
             String sql2 = sql_command.trim();

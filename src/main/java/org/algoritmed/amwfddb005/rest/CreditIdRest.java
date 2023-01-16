@@ -2,7 +2,6 @@ package org.algoritmed.amwfddb005.rest;
 
 import java.sql.Timestamp;
 import java.util.Map;
-import java.util.List;
 
 import org.algoritmed.amwfddb005.db.CreditIdSqlComponent;
 import org.slf4j.Logger;
@@ -28,8 +27,6 @@ public class CreditIdRest {
      */
     @PostMapping("creditid_generate/{clientDbId}")
     public Map<String, Object> creditidGenerate(@PathVariable Long clientDbId) {
-        Map<String, Long> m = Map.of("clientDbId", clientDbId);
-        logger.info("--32-- " + m);
         return creditIdSqlComponent.generateCreditId(clientDbId);
     }
 
@@ -41,7 +38,7 @@ public class CreditIdRest {
         Map m = creditIdSqlComponent.getList1_0(data);
         m.put("ts2", Timestamp.valueOf(((String) m.get("ts")).substring(0, 23).replace("T", " ")));
         logger.info("--35-- " + m);
-        creditIdSqlComponent.postClientIdCreditFromMaster(data);
+        creditIdSqlComponent.postClientIdCreditFromMaster(m);
         logger.info("--40-- " + m);
         return data;
     }
