@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,8 +18,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CreditIdSqlComponent extends ExecuteSqlBlock {
     protected static final Logger logger = LoggerFactory.getLogger(CreditIdSqlComponent.class);
     RestTemplate restTemplate = new RestTemplate();
-    private static final String API_BASE_URL = "http://localhost:8002";
-    // private static final String API_BASE_URL = "http://localhost:8005";
+
+    private @Value("${sql_app.masterDB_BASE_URL}") String masterDB_BASE_URL;
+    private @Value("${sql_app.increment_IdCredit}") int increment_IdCredit;
 
     /**
      * On MASTER DB
@@ -27,7 +29,8 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
      * @return
      */
     public Map<String, Object> generateCreditId(long clientDbId) {
-        int increment = Integer.valueOf(env.getProperty("sql_app.IdCredit_increment"));
+        int increment = increment_IdCredit;
+        //Integer.valueOf(env.getProperty("sql_app.IdCredit_increment"));
         String sql = env.getProperty("sql_app.INSERT_masterForClientIdCredit");
         sql += "; " + env.getProperty("sql_app.SELECT_generateCreditId");
         // Map<String, Object> data = Map.of("clientDbId", clientDbId, "sql", sql);
@@ -84,7 +87,8 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     }
 
     public Map<String, Object> postMasterCreditIdGenerate(long clientDbId) {
-        Map<String, Object> map = this.restTemplate.postForObject(API_BASE_URL + "/r/creditid_generate/" + clientDbId,
+        Map<String, Object> map = this.restTemplate.postForObject(
+                masterDB_BASE_URL + "/r/creditid_generate/" + clientDbId,
                 null,
                 Map.class);
         return map;
@@ -105,7 +109,6 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         m.put("a", "2");
         // Map.of("x","s","y",1);
         logger.info("-75- " + m);
-        logger.info("-75- " + m);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         final Xy xy = objectMapper.convertValue(m, Xy.class);
@@ -124,7 +127,6 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     public Map masterCreditIdMap() {
         String sql = env.getProperty("sql_app.SELECT_isMasterId");
         // logger.info("\n -125- " + sql + "\n -123- " + data);
-        // logger.info("\n -125- " + sql);
         Map m = dbJdbcTemplate.queryForMap(sql);
         // logger.info("\n -129- " + m.get("ismasterid") + "\n -127- " + m);
         return m;
@@ -133,7 +135,7 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     public void writeReadMasterCreditId(Map<String, Object> data) {
         logger.info("\n -128- " + data);
         Map<String, Object> map = this.restTemplate.postForObject(
-                API_BASE_URL + "/r/write_read_sql",
+                masterDB_BASE_URL + "/r/write_read_sql",
                 data, Map.class);
         logger.info("\n -128- " + map);
 
