@@ -32,14 +32,20 @@ public class CreditIdRest {
 
     @GetMapping("creditid_ask")
     public Map<String, Object> creditid_ask() {
-        long selfDbId = creditIdSqlComponent.getSelfDbId();
-        logger.info("--38-- " + selfDbId);
-        Map<String, Object> data = creditIdSqlComponent.postMasterCreditIdGenerate(selfDbId);
-        Map m = creditIdSqlComponent.getList1_0(data);
-        m.put("ts2", Timestamp.valueOf(((String) m.get("ts")).substring(0, 23).replace("T", " ")));
-        logger.info("--35-- " + m);
-        creditIdSqlComponent.postClientIdCreditFromMaster(m);
-        logger.info("--40-- " + m);
+        Map data = creditIdSqlComponent.masterCreditIdMap();
+        if (null != data.get("ismasterid") && (boolean) data.get("ismasterid")) {
+            logger.info("--37--: ID  is in CreditID area \n" + data);
+        }else{
+            long selfDbId = creditIdSqlComponent.getSelfDbId();
+            logger.info("--38-- " + selfDbId);
+            // Map<String, Object> 
+            data = creditIdSqlComponent.postMasterCreditIdGenerate(selfDbId);
+            Map m = creditIdSqlComponent.getList1_0(data);
+            m.put("ts2", Timestamp.valueOf(((String) m.get("ts")).substring(0, 23).replace("T", " ")));
+            logger.info("--35-- " + m);
+            creditIdSqlComponent.postClientIdCreditFromMaster(m);
+            logger.info("--40-- " + m);
+        }
         return data;
     }
 

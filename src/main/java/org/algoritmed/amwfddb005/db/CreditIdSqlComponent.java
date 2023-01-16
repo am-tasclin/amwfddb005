@@ -27,12 +27,13 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
      * @return
      */
     public Map<String, Object> generateCreditId(long clientDbId) {
+        int increment = Integer.valueOf(env.getProperty("sql_app.IdCredit_increment"));
         String sql = env.getProperty("sql_app.INSERT_masterForClientIdCredit");
         sql += "; " + env.getProperty("sql_app.SELECT_generateCreditId");
         // Map<String, Object> data = Map.of("clientDbId", clientDbId, "sql", sql);
         Map<String, Object> data = new HashMap<>();
         data.put("clientDbId", clientDbId);
-        data.put("increment", 3);
+        data.put("increment", increment);
         data.put("sql", sql);
         logger.info("-----28----- \n" + data);
         writeReadSQL(data);
@@ -119,12 +120,13 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         System.out.println(ts);
     }
 
-    public Map masterCreditIdMap(Map<String, Object> data) {
+    // public Map masterCreditIdMap(Map<String, Object> data) {
+    public Map masterCreditIdMap() {
         String sql = env.getProperty("sql_app.SELECT_isMasterId");
         // logger.info("\n -125- " + sql + "\n -123- " + data);
-        logger.info("\n -125- " + sql);
+        // logger.info("\n -125- " + sql);
         Map m = dbJdbcTemplate.queryForMap(sql);
-        logger.info("\n -129- " + m.get("ismasterid") + "\n -127- " + m);
+        // logger.info("\n -129- " + m.get("ismasterid") + "\n -127- " + m);
         return m;
     }
 

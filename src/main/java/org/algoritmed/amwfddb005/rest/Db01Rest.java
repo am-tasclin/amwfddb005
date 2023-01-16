@@ -65,7 +65,7 @@ public class Db01Rest {
     @Transactional
     private void toMaster(Map<String, Object> data) {
         try {
-            Map m = creditIdSqlComponent.masterCreditIdMap(data);
+            Map m = creditIdSqlComponent.masterCreditIdMap();
             if (null != m.get("ismasterid") && (boolean) m.get("ismasterid")) {
                 creditIdSqlComponent.writeReadMasterCreditId(data);
             }
