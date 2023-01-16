@@ -506,8 +506,9 @@ var initDataModel = function(){
 	ctrl.content_menu.minusElement = function(el){
 		if(!el.children || (el.children && el.children.length==0)){
 			writeSql({sql:"" +
-				"DELETE FROM doc WHERE reference = :el_id AND parent in (SELECT doc_id FROM doc where reference = 285596);\n" +
+				"DELETE FROM doc WHERE reference = :el_id ;\n" +
 				"DELETE FROM doc WHERE doc_id = :el_id "
+				//"DELETE FROM doc WHERE reference = :el_id AND parent in (SELECT doc_id FROM doc where reference = 285596);\n" +
 			, el_id:el.doc_id
 			, dataAfterSave : function(response) {
 				var parentEl = ctrl.eMap[el.parent]

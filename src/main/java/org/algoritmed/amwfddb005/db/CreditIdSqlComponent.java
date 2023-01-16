@@ -131,7 +131,7 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     public void writeReadMasterCreditId(Map<String, Object> data) {
         logger.info("\n -128- " + data);
         Map<String, Object> map = this.restTemplate.postForObject(
-                API_BASE_URL + "/r/writeReadSQL",
+                API_BASE_URL + "/r/write_read_sql",
                 data, Map.class);
         logger.info("\n -128- " + map);
 
