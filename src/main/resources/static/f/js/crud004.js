@@ -631,6 +631,7 @@ var initDataModel = function(){
 		console.log(el, ctrl.content_menu.copyObject)
 		var so = {reference2:ctrl.content_menu.copyObject.doc_id,
 			doc_id:el.doc_id,
+			adnId:el.doc_id,
 			sql:"UPDATE doc SET reference2 = :reference2 WHERE doc_id = :doc_id",
 			dataAfterSave:function(response){
 				console.log(response)
@@ -650,6 +651,7 @@ var initDataModel = function(){
 		console.log(el, ctrl.content_menu.copyObject)
 		var so = {reference:ctrl.content_menu.copyObject.doc_id,
 			doc_id:el.doc_id,
+			adnId:el.doc_id,
 			sql:"UPDATE doc SET reference = :reference WHERE doc_id = :doc_id",
 			dataAfterSave:function(response){
 				console.log(response)

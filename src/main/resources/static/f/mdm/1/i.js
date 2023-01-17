@@ -78,7 +78,8 @@ class AdnContent_menu { //left in MDM
             + replaceSql(sql_app.autoSQL_AdnCRUD.r)
                 .replace(':doc_id', adnId)
         console.log(adnId, sql)
-        this.dataFactory.writeSql(sql, r => conf.eMap[r.list1[0].doc_id] = r.list1[0])
+        this.dataFactory.writeSqlAdnId({sql:sql, adnId:adnId}, r => conf.eMap[r.list1[0].doc_id] = r.list1[0])
+        // this.dataFactory.writeSql(sql, r => conf.eMap[r.list1[0].doc_id] = r.list1[0])
     }
 
     pasteElementReference2 = adnId => {
@@ -86,12 +87,13 @@ class AdnContent_menu { //left in MDM
     }
 
     addElement = adnId => {
-        const el = conf.eMap[adnId], so = { parent: el.doc_id }
+        const el = conf.eMap[adnId], so = { parent: el.doc_id, adnId: adnId }
         so.sql = sql_app.INSERT_doc(so)
         so.sql += replaceSql(sql_app.autoSQL_AdnCRUD.r)
         so.sql = so.sql.replace(':doc_id', ':nextDbId1')
         console.log(adnId, so)
-        this.dataFactory.writeSql(so.sql, r => {
+        // this.dataFactory.writeSql(so.sql, r => {
+        this.dataFactory.writeSqlAdnId(so, r => {
             console.log(r)
             // conf.eMap[r.list1[0].doc_id] = r.list1[0]
         })
