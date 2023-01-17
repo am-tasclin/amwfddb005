@@ -520,7 +520,8 @@ var initDataModel = function(){
 	}
 
 	ctrl.content_menu.addElement = function(el){
-		var so =	{parent:el.doc_id}
+		var so =	{parent:el.doc_id, adnId:el.doc_id}
+		console.log(so)
 		so.sql =	sql_app.INSERT_doc(so)
 		so.sql +=	sql_app.SELECT_doc_id()
 		so.dataAfterSave = function(response) {
@@ -928,6 +929,8 @@ var upDowntElement = function(o, direction){
 			oParent.children.splice(position + direction, 0, x[0])
 		}
 		var so = sqlSort(oParent)
+		so.adnId=o.parent
+		console.log(so)
 		so.sql += sql_app.SELECT_children_with_i18n(oParent.doc_id)
 //		so.sql += sql_app.SELECT_with_parent(oParent)
 		so.dataAfterSave = function(response) {
