@@ -564,7 +564,8 @@ var initDataModel = function(){
 			writeSql(so)
 		}else if(ctrl.content_menu.copyObject){
 			console.log(el, ctrl.content_menu.copyObject)
-			sql_app.copyElement({adnId:el.doc_id, parent:el.parent, doc_id:':nextDbId'+1}, el.sort, {copyObject:ctrl.content_menu.copyObject, el:el})
+			console.log({adnId:el.parent, parent:el.parent, doc_id:':nextDbId'+1})
+			sql_app.copyElement({adnId:el.parent, parent:el.parent, doc_id:':nextDbId'+1}, el.sort, {copyObject:ctrl.content_menu.copyObject, el:el})
 		}
 	}
 
@@ -600,7 +601,7 @@ var initDataModel = function(){
 				newEl.children = []
 				angular.forEach(d.copyObject.children, function(v, k_sort){
 					console.log(v)
-					sql_app.copyElement({parent:newEl.doc_id, doc_id:':nextDbId'+1}, k_sort, {copyObject:v, elParent:newEl})
+					sql_app.copyElement({adnId:newEl.doc_id, parent:newEl.doc_id, doc_id:':nextDbId'+1}, k_sort, {copyObject:v, elParent:newEl})
 				})
 			}
 		}
@@ -665,7 +666,7 @@ var initDataModel = function(){
 		writeSql(so)
 	}
 	ctrl.content_menu.deleteElementReference1 = function(el){
-		var so = {doc_id:el.doc_id,
+		var so = {doc_id:el.doc_id, adnId:el.doc_id,
 			sql:"UPDATE doc SET reference = null WHERE doc_id = :doc_id",
 			dataAfterSave:function(response){
 				console.log(response)
