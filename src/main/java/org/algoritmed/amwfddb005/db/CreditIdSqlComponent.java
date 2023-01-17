@@ -124,11 +124,19 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     }
 
     // public Map masterCreditIdMap(Map<String, Object> data) {
-    public Map masterCreditIdMap() {
-        String sql = env.getProperty("sql_app.SELECT_isMasterId");
-        // logger.info("\n -125- " + sql + "\n -123- " );
+    public Map masterCreditIdMap(String sqlAppName, Map data) {
+        logger.info("\n -129- " + data);
+        String sql = env.getProperty(sqlAppName);
+        List<Map<String, Object>> l = dbParamJdbcTemplate.queryForList(sql, data);
+        return l.size() == 0?null:l.get(0);
+    }
+
+    public Map masterCreditIdMap(String sqlAppName) {
+        String sql = env.getProperty(sqlAppName);
+        logger.info("\n -125- " + sql + "\n -123- ");
         Map m = dbJdbcTemplate.queryForMap(sql);
-        // logger.info("\n -129- " + m.get("ismasterid") + "\n -127- " + m);
+        logger.info("\n -129- " + "\n -127- " + m);
+        logger.info("\n -129- " + m.get("ismasteridinn"));
         // data.put("creditId", getList1_0(map));
         return m;
     }

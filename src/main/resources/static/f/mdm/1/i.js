@@ -99,6 +99,7 @@ class AdnContent_menu { //left in MDM
 
     field_name_save = adnId => {
         const el = conf.eMap[adnId], so = {
+            adnId: adnId,
             doc_id: el.doc_id, value: "'" + el.valueToEdit + "'"
             , table_name: 'string', cuName: !el.value_22 ? 'c' : 'u'
         }
@@ -110,7 +111,8 @@ class AdnContent_menu { //left in MDM
         so.sql += ';\n ' + sql_app.autoSQL_AdnCRUD.r
         so.sql = so.sql.replace(':doc_id', so.doc_id)
         so.sql = replaceSql(so.sql)
-        this.dataFactory.writeSql(so.sql
+        // this.dataFactory.writeSql(so.sql
+        this.dataFactory.writeSqlAdnId(so
             , r => conf.eMap[r.list1[0].doc_id] = r.list1[0])
     }
 

@@ -53,7 +53,7 @@ public class Db01Rest {
      * 
      * @param data
      */
-    //@Transactional
+    // @Transactional
     @PostMapping("write_read_sql")
     public Map<String, Object> write_read_sql(@RequestBody Map<String, Object> data) {
         logger.info(" ------54- writeReadSQL " + data);
@@ -65,9 +65,9 @@ public class Db01Rest {
     @Transactional
     private void toMaster(Map<String, Object> data) {
         try {
-            Map m = creditIdSqlComponent.masterCreditIdMap();
+            Map m = creditIdSqlComponent.masterCreditIdMap("sql_app.SELECT_isMasterIdForEdId", data);
             data.put("creditId", m);
-            if (null != m.get("ismasterid") && (boolean) m.get("ismasterid")) {
+            if (null != m && null != m.get("ismasteridinn") && (boolean) m.get("ismasteridinn")) {
                 creditIdSqlComponent.writeReadMasterCreditId(data);
             }
         } catch (Exception e) {

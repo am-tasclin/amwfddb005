@@ -2,6 +2,7 @@ class RWADN01DataFactory extends RWDataFactory {
     constructor($http, $q) { super($http, $q) }
     readSql = (sql, fn) => this.httpGetSql({ sql: sql }).then(fn)
     writeSql = (sql, fn) => this.httpPostSql({ sql: sql }).then(fn)
+    writeSqlAdnId = (soSqlAdnId, fn) => this.httpPostSql({ sql: soSqlAdnId.sql, adnId: soSqlAdnId.adnId }).then(fn)
 }; app.factory('dataFactory', RWADN01DataFactory)
 
 // const singlePage = {}, conf = {}, sql_app = {}

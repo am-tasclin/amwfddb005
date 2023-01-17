@@ -32,7 +32,7 @@ public class CreditIdRest {
 
     @GetMapping("creditid_ask")
     public Map<String, Object> creditid_ask() {
-        Map data = creditIdSqlComponent.masterCreditIdMap();
+        Map data = creditIdSqlComponent.masterCreditIdMap("sql_app.SELECT_isMasterId");
         if (null != data.get("ismasteridinc") && (boolean) data.get("ismasteridinc")) {
             logger.info("--37--: ID  is in CreditID area \n" + data);
         }else{
