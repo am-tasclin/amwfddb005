@@ -78,7 +78,7 @@ class AdnContent_menu { //left in MDM
             + replaceSql(sql_app.autoSQL_AdnCRUD.r)
                 .replace(':doc_id', adnId)
         console.log(adnId, sql)
-        this.dataFactory.writeSqlAdnId({sql:sql, adnId:adnId}, r => conf.eMap[r.list1[0].doc_id] = r.list1[0])
+        this.dataFactory.writeSqlAdnId({ sql: sql, adnId: adnId }, r => conf.eMap[r.list1[0].doc_id] = r.list1[0])
         // this.dataFactory.writeSql(sql, r => conf.eMap[r.list1[0].doc_id] = r.list1[0])
     }
 

@@ -510,6 +510,7 @@ var initDataModel = function(){
 				"DELETE FROM doc WHERE doc_id = :el_id "
 				//"DELETE FROM doc WHERE reference = :el_id AND parent in (SELECT doc_id FROM doc where reference = 285596);\n" +
 			, el_id:el.doc_id
+			, adnId:el.doc_id
 			, dataAfterSave : function(response) {
 				var parentEl = ctrl.eMap[el.parent]
 				parentEl.children.splice(parentEl.children.indexOf(el), 1)
@@ -551,16 +552,18 @@ var initDataModel = function(){
 			console.log(ctrl.content_menu.cutObject)
 			var so = {parent:el.parent,
 				doc_id:ctrl.content_menu.cutObject.doc_id,
+				adnId:ctrl.content_menu.cutObject.doc_id,
 				sql:"UPDATE doc SET parent=:parent WHERE doc_id=:doc_id",
 				dataAfterSave:function(response){
 					console.log(response.data)
 					delete ctrl.content_menu.cutObject
 				}
 			}
+			console.log(so)
 			writeSql(so)
 		}else if(ctrl.content_menu.copyObject){
 			console.log(el, ctrl.content_menu.copyObject)
-			sql_app.copyElement({parent:el.parent, doc_id:':nextDbId'+1}, el.sort, {copyObject:ctrl.content_menu.copyObject, el:el})
+			sql_app.copyElement({adnId:el.doc_id, parent:el.parent, doc_id:':nextDbId'+1}, el.sort, {copyObject:ctrl.content_menu.copyObject, el:el})
 		}
 	}
 
