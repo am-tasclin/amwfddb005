@@ -3,3 +3,4 @@ bin/
 .gradle/
 src/main/resources/application copy.properties
 src/main/resources/application.properties
+src/main/resources/static/f/mdm/1/.i.js.swp

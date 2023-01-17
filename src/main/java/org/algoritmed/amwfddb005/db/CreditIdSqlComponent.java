@@ -30,7 +30,7 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
      */
     public Map<String, Object> generateCreditId(long clientDbId) {
         int increment = increment_IdCredit;
-        //Integer.valueOf(env.getProperty("sql_app.IdCredit_increment"));
+        // Integer.valueOf(env.getProperty("sql_app.IdCredit_increment"));
         String sql = env.getProperty("sql_app.INSERT_masterForClientIdCredit");
         sql += "; " + env.getProperty("sql_app.SELECT_generateCreditId");
         // Map<String, Object> data = Map.of("clientDbId", clientDbId, "sql", sql);
@@ -129,6 +129,7 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
         // logger.info("\n -125- " + sql + "\n -123- " + data);
         Map m = dbJdbcTemplate.queryForMap(sql);
         // logger.info("\n -129- " + m.get("ismasterid") + "\n -127- " + m);
+        // data.put("creditId", getList1_0(map));
         return m;
     }
 
@@ -138,6 +139,5 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
                 masterDB_BASE_URL + "/r/write_read_sql",
                 data, Map.class);
         logger.info("\n -128- " + map);
-
     }
 }

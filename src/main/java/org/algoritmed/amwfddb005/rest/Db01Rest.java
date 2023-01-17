@@ -66,6 +66,7 @@ public class Db01Rest {
     private void toMaster(Map<String, Object> data) {
         try {
             Map m = creditIdSqlComponent.masterCreditIdMap();
+            data.put("creditId", m);
             if (null != m.get("ismasterid") && (boolean) m.get("ismasterid")) {
                 creditIdSqlComponent.writeReadMasterCreditId(data);
             }

@@ -147,7 +147,11 @@ class RWDataFactory {
         let deferred = this.$q.defer()
 
         this.$http.post(this.urlSql, params
-        ).then(response => deferred.resolve(response.data)
+        ).then(response => {
+            if (response.data.creditId)
+                singlePage.session.creditId = response.data.creditId
+            deferred.resolve(response.data)
+        }
             , response => console.error(response.status)
         )
 

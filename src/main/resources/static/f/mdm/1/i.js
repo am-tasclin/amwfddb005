@@ -102,7 +102,6 @@ class AdnContent_menu { //left in MDM
             doc_id: el.doc_id, value: "'" + el.valueToEdit + "'"
             , table_name: 'string', cuName: !el.value_22 ? 'c' : 'u'
         }
-
         so.sql = sql_app.autoSQL_AdnCRUD[so.cuName]
             .replaceAll(':table_name', so.table_name)
             .replace(':doc_id', so.doc_id)
@@ -121,11 +120,11 @@ class AdnContent_menu { //left in MDM
             el.valueToEdit = el.r_doctype ? el['value_' + el.r_doctype] : el.value_22
         }
     }
-    
+
 }
 
 const r1r2Use = {}
-r1r2Use.isN = () => !isNaN(r1r2Use.r1r2*1)
+r1r2Use.isN = () => !isNaN(r1r2Use.r1r2 * 1)
 
 class InitPageController extends AbstractController {
     constructor(dataFactory, $timeout) {
