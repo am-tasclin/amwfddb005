@@ -126,7 +126,7 @@ public class CreditIdSqlComponent extends ExecuteSqlBlock {
     // public Map masterCreditIdMap(Map<String, Object> data) {
     public Map masterCreditIdMap() {
         String sql = env.getProperty("sql_app.SELECT_isMasterId");
-        // logger.info("\n -125- " + sql + "\n -123- " + data);
+        // logger.info("\n -125- " + sql + "\n -123- " );
         Map m = dbJdbcTemplate.queryForMap(sql);
         // logger.info("\n -129- " + m.get("ismasterid") + "\n -127- " + m);
         // data.put("creditId", getList1_0(map));

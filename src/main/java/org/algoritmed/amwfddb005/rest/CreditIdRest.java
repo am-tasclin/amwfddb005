@@ -33,7 +33,7 @@ public class CreditIdRest {
     @GetMapping("creditid_ask")
     public Map<String, Object> creditid_ask() {
         Map data = creditIdSqlComponent.masterCreditIdMap();
-        if (null != data.get("ismasterid") && (boolean) data.get("ismasterid")) {
+        if (null != data.get("ismasteridinc") && (boolean) data.get("ismasteridinc")) {
             logger.info("--37--: ID  is in CreditID area \n" + data);
         }else{
             long selfDbId = creditIdSqlComponent.getSelfDbId();

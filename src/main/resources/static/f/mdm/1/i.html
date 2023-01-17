@@ -59,7 +59,7 @@
                         href="/f/kassa3r/r2tab.html#!/sql_FHIRs_Group">SQL</a>&nbsp;editor)</sub>
             </span>
             <span title="creditId: rest" class="w3-tiny w3-border am-b" data-ng-repeat="ctd in [ctrl.singlePage.session.creditId]"
-                data-ng-if="ctd.to_id">
+                data-ng-if="ctd && ctd.to_id">
                 {{(ctd.to_id-ctd.last_value)/(ctd.to_id-ctd.from_id)*100}}%
             </span>
             <i class="fas fa-sign-in-alt"></i>
