@@ -22,6 +22,7 @@ public class CreditIdRest {
 
     /**
      * On MASTER DB
+     * 
      * @param clientDbId
      * @return
      */
@@ -35,10 +36,10 @@ public class CreditIdRest {
         Map data = creditIdSqlComponent.masterCreditIdMap("sql_app.SELECT_isMasterId");
         if (null != data.get("ismasteridinc") && (boolean) data.get("ismasteridinc")) {
             logger.info("--37--: ID  is in CreditID area \n" + data);
-        }else{
+        } else {
             long selfDbId = creditIdSqlComponent.getSelfDbId();
             logger.info("--38-- " + selfDbId);
-            // Map<String, Object> 
+            // Map<String, Object>
             data = creditIdSqlComponent.postMasterCreditIdGenerate(selfDbId);
             Map m = creditIdSqlComponent.getList1_0(data);
             m.put("ts2", Timestamp.valueOf(((String) m.get("ts")).substring(0, 23).replace("T", " ")));
