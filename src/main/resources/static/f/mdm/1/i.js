@@ -341,6 +341,7 @@ class InitPageController extends AbstractController {
 
 const routeController = controllerClass => {
     const controllerName = controllerClass.toString().split(' ')[1]
+    console.log(controllerName, 343)
     app.controller(controllerName, controllerClass)
     return { templateUrl: 'mc-sql-design.html', controller: controllerName, }
 }

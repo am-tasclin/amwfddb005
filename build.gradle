@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.0.1'
+	id 'org.springframework.boot' version '3.0.2'
 	id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -14,10 +14,13 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	compileOnly("org.springframework.boot:spring-boot-devtools")
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.postgresql:postgresql'
+	// runtimeOnly 'org.postgresql:r2dbc-postgresql'
 	runtimeOnly 'org.webjars.npm:angular:1.8.3'
 	runtimeOnly 'org.webjars.npm:angular-animate:1.8.2'
 	runtimeOnly 'org.webjars.npm:angular-resource:1.8.2'
@@ -28,6 +31,7 @@ dependencies {
 	runtimeOnly 'org.webjars.npm:angular-messages:1.8.2'
 	implementation 'org.webjars:font-awesome:6.1.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
 }
 
 tasks.named('test') {

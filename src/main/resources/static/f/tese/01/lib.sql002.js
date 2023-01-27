@@ -135,6 +135,11 @@ class RouteProviderConfig {
                 $routeProvider.when("/" + k, v)
             }
         })
+
+
+        console.log($routeProvider, 123, $routeProvider.when)
+
+
         if (singlePage.index_template)
             $routeProvider.otherwise({ templateUrl: singlePage.index_template })
         else

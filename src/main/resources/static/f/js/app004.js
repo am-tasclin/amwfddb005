@@ -14,7 +14,6 @@ var initApp = function ($scope, $http, $timeout) {
 
 	ctrl.openUrl = (url) => window.location.href = url;
 
-
 	ctrl.contains_child_type = (el, type_id) => {
 		let r
 		if (el && el.children)

@@ -14,11 +14,11 @@ angular.element(() => angular.bootstrap(document, ['app']))
 class AbstractController { constructor(dataFactory) { this.dataFactory = dataFactory } }
 
 class PageLogic0Factory {
-    constructor(dataFactory) { 
+    constructor(dataFactory) {
         //this.dataFactory = dataFactory 
     }
     getSqlApp = name => sql_app[name]
-    conf = conf; session = session; singlePage= singlePage
+    conf = conf; session = session; singlePage = singlePage
 }
 
 class RWData0Factory {
@@ -74,7 +74,9 @@ class RouteProviderConfig {
     constructor($routeProvider) {
         console.log('RouteProviderConfig', Object.keys(singlePage))
         angular.forEach(singlePage, (v, k) => (
-            v.controller && $routeProvider.when("/" + k, v)))
+            v.controller && $routeProvider.when("/" + k, v))
+        )
+        
         if (singlePage.index_template)
             $routeProvider.otherwise({ templateUrl: singlePage.index_template })
         else
