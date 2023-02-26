@@ -8,6 +8,13 @@
 .am-i {font-style: italic; }
 .am-u {text-decoration: underline; }
 a.am-0u {text-decoration: none; }
+a.am-el {
+	background-image: url(/f/css/external_link.svg);
+	background-position: center right;
+	background-repeat: no-repeat;
+	background-size: 0.857em;
+	padding-right: 1em;
+}
 .am-uppercase{text-transform: uppercase;}
 .am-width-100pr{width: 100%;}
 .am-max-width-1{max-width: 70em;}
